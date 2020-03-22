@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Justin Cleveland" />
+
+
+<title>Case Study 1</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.5/htmlwidgets.js"></script>
+<script src="site_libs/plotly-binding-4.9.1/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="site_libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+<link href="site_libs/plotly-htmlwidgets-css-1.49.4/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="site_libs/plotly-main-1.49.4/plotly-latest.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">My Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home Page</a>
+</li>
+<li>
+  <a href="CaseStudy1.html">Case Study 1</a>
+</li>
+<li>
+  <a href="RShinyPage.html">Shiny App</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Case Study 1</h1>
+<h4 class="author">Justin Cleveland</h4>
+
+</div>
+
+
+<p>Introduction</p>
+<p>Our goal is to provide any interesting or useful insights gained from the analysis of the beer and brewery data provided by Budweiser. In exploring the beer data we will analyze variables including ABV (alcohol content by volume), IBU (International Bitterness Units), the brewer, brewery location, beer style, and the volume in ounces of the beer of interest in order to find interesting correlations. We have found numerous insights about beer preferences across the country and the differences between the various beer styles using both KNN and logistic regression classifiers. Our findings are presented below.</p>
+<div id="section" class="section level143">
+<p></p>
+<p>Load required R Libraries</p>
+<pre class="r"><code>library(ggplot2)
+library(plyr)
+library(tidyverse)
+library(GGally)
+library(caret)
+library(class)
+library(e1071)
+library(httr)
+library(RCurl)</code></pre>
+</div>
+<div id="analysis-questions" class="section level2">
+<h2>Analysis Questions</h2>
+<div id="question-1" class="section level3">
+<h3>Question 1</h3>
+<div id="how-many-breweries-are-present-in-each-state" class="section level4">
+<h4>How many breweries are present in each state?</h4>
+<p>Code below will read data, summarize, and then plot a barchart of the results.</p>
+<pre class="r"><code># Read in brewery data
+brewery_data = read.csv(text=getURL(&quot;https://raw.githubusercontent.com/JustinCleveland/JustinCleveland.github.io/master/Breweries.csv&quot;), header = TRUE,   na.strings =c(&#39;&#39;, &#39;NA&#39;))
+# Create an object that counts breweries by state, to be used for reordering data
+state_counts = data.frame(table(brewery_data$State))
+colnames(state_counts)  = c(&quot;State&quot;, &quot;Freq&quot;)
+state_counts = state_counts[order(state_counts$Freq),]
+# Plot the ordered results
+state_counts %&gt;% ggplot(aes(x = reorder(State, Freq), y = Freq)) +
+  geom_bar(stat = &#39;identity&#39;) + 
+  coord_flip() + 
+  ggtitle(&#39;Number of Breweries by State&#39;) + 
+  ylab(&#39;Count&#39;) + 
+  xlab(&#39;State&#39;)</code></pre>
+<p><img src="CaseStudy1_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>This creates a heatmap for the number of breweries in each state. The number of breweries is plotted in the center of each state.</p>
+<pre class="r"><code>library(ggplot2)
+library(maps)
+library(dplyr)
+library(mapproj)
+# Create dataframe with state information and change column names to merge
+new_brewery_data = brewery_data
+lookup = data.frame(abb = state.abb, State = state.name)
+colnames(new_brewery_data)[4] = &quot;abb&quot;
+brewery_data2 = merge(new_brewery_data,lookup, by =&quot;abb&quot;, all.x = TRUE, no.dups = F)
+brewery_data2 = brewery_data2[!brewery_data2$abb == &#39; DC&#39;,]
+levels(brewery_data2$State) = levels(lookup$State)
+levels(lookup$abb) = levels(brewery_data2$abb)
+for (row in 1:nrow(brewery_data2)){
+  abb = as.character(brewery_data2$abb[row])
+  abb = trimws(abb)
+  brewery_data2$State[row] = state.name[which(state.abb == abb)]
+}
+# Count breweries in each state and manipulate variables to match states dataframe
+NumBreweryMapData = count(brewery_data2, State)
+colnames(NumBreweryMapData)[2] = &quot;Breweries&quot;
+NumBreweryMapData$region &lt;- tolower(NumBreweryMapData$State)
+NumBreweryMapData2 = NumBreweryMapData[-1]
+states &lt;- map_data(&quot;state&quot;)
+map.df &lt;- merge(states,NumBreweryMapData2, by=&quot;region&quot;, all.x=T)
+map.df &lt;- map.df[order(map.df$order),]
+# Get rough location of middle of each state to plot number of breweries overtop of the states
+tibble = map.df %&gt;% group_by(region) %&gt;% summarise(midlat = mean(c(max(lat), min(lat))), midlong = mean(c(max(long), min(long))))
+for (row in 1:nrow(map.df)){
+  region = map.df$region[row]
+  midlat = tibble[tibble$region == region,]$midlat
+  midlong = tibble[tibble$region == region,]$midlong
+  map.df$midlat[row] = midlat
+  map.df$midlong[row] = midlong
+}
+ggplot(map.df, aes(x=long,y=lat,group=group)) + 
+  geom_polygon(aes(fill=Breweries)) +
+  geom_path() + 
+  scale_fill_gradientn(colours=rev(heat.colors(10)),na.value=&quot;grey90&quot;) +
+  ggtitle(&quot;Number of Breweries in Each State&quot;) +  
+  coord_map() + 
+  geom_text(label = map.df$Breweries, x = map.df$midlong, y = map.df$midlat) +
+  theme(plot.title = element_text(hjust = 0.5))</code></pre>
+<p><img src="CaseStudy1_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+</div>
+<div id="conclusion" class="section level4">
+<h4>Conclusion</h4>
+<p>The top 10 states account for over 50% of all breweries nationwide. What makes these states so attractive is a combination of factors. The top 10 states have some of the lowest excise taxes on beer nationwide, some of the largest 21 and older populations in the country, and some of the highest median incomes in the country. Others, like Colorado, have a long tradition of brewing, thanks to the gold rush and Coors, creating a peculiar brewing culture that exploded when home-brewing was legalized in 1979.</p>
+</div>
+</div>
+<div id="question-2" class="section level3">
+<h3>Question 2</h3>
+<div id="merge-beer-data-with-the-breweries-data.-print-the-first-and-last-6-observations-to-check-the-merged-file." class="section level4">
+<h4>Merge beer data with the breweries data. Print the first and last 6 observations to check the merged file.</h4>
+<p>Code below reads and merges datasets such that each brewery will now contain produced beer It will then print the first and last 6 observations to verify that it worked correctly.</p>
+<pre class="r"><code># Read in Beer data and merge with brewery data
+beer_data = read.csv(text=getURL(&quot;https://raw.githubusercontent.com/JustinCleveland/JustinCleveland.github.io/master/Beers.csv&quot;), header = TRUE, na.strings = c(&#39;&#39;, &#39;NA&#39;))
+dataset = merge(brewery_data, beer_data, by.x = &#39;Brew_ID&#39;, by.y = &#39;Brewery_id&#39;, all = TRUE)
+# Print first and last 6 observations
+dataset[1:6,]
+tail(dataset, 6)</code></pre>
+</div>
+</div>
+<div id="question-3" class="section level3">
+<h3>Question 3</h3>
+<div id="address-the-missing-values-in-each-column-abv-and-ibu." class="section level4">
+<h4>Address the missing values in each column (ABV and IBU).</h4>
+<p>Code below removes any beers with a missing style (5 observations are removed), then calculates the average ABV and IBU for each style of beer, and assigns the missing values with the calculated average</p>
+<pre class="r"><code># Remove beers missing values for Style
+dataset = dataset[!is.na(dataset$Style),]
+# Calculate average values for ABV and IBU and store in a dataframe
+avg_abv = dataset %&gt;% group_by(Style) %&gt;% summarize(meanABV = mean(ABV, na.rm = TRUE))
+avg_abv = as.data.frame(avg_abv)
+grand_mean_abv = dataset %&gt;% summarize(grand_mean_abv = mean(ABV, na.rm = TRUE))
+grand_mean_ibu = dataset %&gt;% summarize(grand_mean_ibu = mean(IBU, na.rm = TRUE))
+avg_ibu = dataset %&gt;% group_by(Style) %&gt;% summarize(meanibu  = mean(IBU, na.rm = TRUE))
+avg_ibu = as.data.frame(avg_ibu)
+# Replace missing average IBU&#39;s with grand mean IBU in IBU dataframe
+avg_ibu$meanibu = ifelse(is.na(avg_ibu$meanibu), grand_mean_ibu, avg_ibu$meanibu)
+# Replace missing ABV&#39;s and IBU&#39;s in full dataset with averages by Style
+for (row in 1:nrow(dataset)){
+  
+  if(is.na(dataset[row, &#39;ABV&#39;])){
+    dataset[row, &#39;ABV&#39;] = avg_abv[avg_abv$Style == dataset$Style[row],]$meanABV[1]
+  }
+  if(is.na(dataset[row, &#39;IBU&#39;])){
+    dataset[row, &#39;IBU&#39;] = avg_ibu[avg_ibu$Style == dataset$Style[row],]$meanibu[1]
+  }
+}</code></pre>
+<p>The missing values were filled in with as meaningful data as possible with the given dataset. The average alcohol content and bitterness rating was calculated for each style of beer. Any beers of that style with a missing value was given the average for that style. This required removing the few cases of beers with missing styles (5), since these could not contribute meaningfully to the averages.</p>
+</div>
+</div>
+<div id="question-4" class="section level3">
+<h3>Question 4</h3>
+<div id="compute-the-median-alcohol-content-and-ibu-for-each-state.-plot-a-bar-chart-to-compare." class="section level4">
+<h4>Compute the median alcohol content and IBU for each state. Plot a bar chart to compare.</h4>
+<p>This code computes the median ABV and IBU by state, and then prints the state with the highest median ABV and IBU. It also creates a median dataframe, that is used for a heatmap. The state with the highest median ABV is Kentucky, that with the highest median IBU is Delaware.</p>
+<pre class="r"><code># Find and display median values
+median_abv = dataset %&gt;% group_by(State) %&gt;% summarize(medianABV = median(ABV))
+median_abv = as.data.frame(median_abv)
+median_ibu = dataset %&gt;% group_by(State) %&gt;% summarize(medianIBU = median(IBU))
+median_ibu = as.data.frame(median_ibu)
+# Determine which observation has maximum values and output the state
+median_abv$State[which.max(median_abv$medianABV)] # Kentucky
+median_abv$medianABV[which.max(median_abv$medianABV)]
+median_ibu$State[which.max(median_ibu$medianIBU)] # Delaware
+median_ibu$medianIBU[which.max(median_ibu$medianIBU)]
+median_data = merge(median_abv, median_ibu, by = &#39;State&#39;)</code></pre>
+<p>This creates a bar chart for median ABV and IBU for each state.</p>
+<pre class="r"><code>median_abv %&gt;% ggplot(aes(x = reorder(State, medianABV, fun = median), y = medianABV)) +
+  geom_point(col = &#39;tomato2&#39;, size = 2) +
+  geom_segment(aes(x = median_abv$State,
+                   xend = State,
+                   y = min(median_abv$medianABV),
+                   yend = max(median_abv$medianABV)),
+                   linetype = &#39;dashed&#39;,
+                   size = 0.1) +
+  coord_flip() +
+  ggtitle(&#39;Median ABV By State&#39;) +
+  xlab(&#39;State&#39;) + ylab(&#39;Median ABV&#39;) + 
+  theme(plot.title = element_text(hjust = 0.5))</code></pre>
+<p><img src="CaseStudy1_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<pre class="r"><code>median_ibu %&gt;% ggplot(aes(x = reorder(State, medianIBU, fun = median), y = medianIBU)) +
+  geom_point(col = &#39;tomato2&#39;, size = 2) +
+  geom_segment(aes(x = median_ibu$State,
+                   xend = State,
+                   y = min(median_ibu$medianIBU),
+                   yend = max(median_ibu$medianIBU)),
+                   linetype = &#39;dashed&#39;,
+                   size = 0.1) +
+  coord_flip() +
+  ggtitle(&#39;Median IBU By State&#39;) +
+  xlab(&#39;State&#39;) + ylab(&#39;Median IBU&#39;) + 
+  theme(plot.title = element_text(hjust = 0.5))</code></pre>
+<p><img src="CaseStudy1_files/figure-html/unnamed-chunk-7-2.png" width="672" /></p>
+<p>This plots the median ABV and IBU by state on a heatmap for an easy-to-read summary of the data.</p>
+<pre class="r"><code>library(ggplot2)
+library(maps)
+library(dplyr)
+library(mapproj)
+# Create dataframe with state information and change column names to merge
+lookup = data.frame(abb = state.abb, State = state.name)
+colnames(median_data)[1] = &quot;abb&quot;
+median_data2 = merge(median_data,lookup, by =&quot;abb&quot;, all.x = TRUE, no.dups = F)
+median_data2 = median_data2[!median_data2$abb == &#39; DC&#39;,]
+levels(median_data2$State) = levels(lookup$State)
+levels(lookup$abb) = levels(median_data2$abb)
+for (row in 1:nrow(median_data2)){
+  abb = as.character(median_data2$abb[row])
+  abb = trimws(abb)
+  median_data2$State[row] = state.name[which(state.abb == abb)]
+}
+median_data2$region &lt;- tolower(median_data2$State)
+states &lt;- map_data(&quot;state&quot;)
+map.df &lt;- merge(states,median_data2, by=&quot;region&quot;, all.x=T)
+map.df &lt;- map.df[order(map.df$order),]
+map.df$Percent = map.df$medianABV * 100
+ggplot(map.df, aes(x=long,y=lat,group=group)) + 
+  geom_polygon(aes(fill=Percent)) +
+  geom_path() + 
+  scale_fill_gradientn(colours=rev(rainbow(10)),na.value=&quot;grey90&quot;) +
+  ggtitle(&quot;Median ABV in Each State&quot;) +  
+  coord_map() + 
+  theme(plot.title = element_text(hjust = 0.5)) + 
+  labs(fill = &#39;ABV (%)&#39;)</code></pre>
+<p><img src="CaseStudy1_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(map.df, aes(x=long,y=lat,group=group)) + 
+  geom_polygon(aes(fill=medianIBU)) +
+  geom_path() + 
+  scale_fill_gradientn(colours=rev(rainbow(10)),na.value=&quot;grey90&quot;) +
+  ggtitle(&quot;Median IBU in Each State&quot;) +  
+  coord_map() + 
+  theme(plot.title = element_text(hjust = 0.5)) +
+  labs(fill = &#39;IBU Rating&#39;)</code></pre>
+<p><img src="CaseStudy1_files/figure-html/unnamed-chunk-8-2.png" width="672" /></p>
+</div>
+<div id="conclusion-1" class="section level4">
+<h4>Conclusion</h4>
+<p>The majority of the country has a median alcohol content of about 5.5% for beers, with notable exceptions being Kentucky (6.4%) and West Virginia (6.2%), and Utah (~4%). Kentucky is world famous for their bourbon whiskey, and this influences their beer production. Kentucky craft beer is often aged in whiskey barrels, which can can increase the ABV due to the residual whiskey, as well as allowing some water to evaporate.</p>
+<p>Utah has much stricter laws regulating alcohol due to the high concentration of Mormon’s and their beliefs regarding alcohol.</p>
+<p>A rough national median IBU rating is between 30-40, with Delaware having the highest (60), and West Virginia close behind at 57. Delaware and West Virginia are much higher than the rest of the nation because they have far fewer breweries than most states, but are following the national trend of brewing bitter IPA’s and pale ales. The median bitterness rating is much lower in the midwest than elsewhere in the country. This is due to the preference for ales over more bitter beer styles in this region. We will discuss this later in our analysis (question 9).</p>
+</div>
+</div>
+<div id="question-5" class="section level3">
+<h3>Question 5</h3>
+<div id="which-state-has-the-most-alcoholic-beer-and-which-has-the-most-bitter-beer" class="section level4">
+<h4>Which state has the most alcoholic beer, and which has the most bitter beer?</h4>
+<p>The following code determines which states have the highest beer ABV and IBU, and prints them out. The state with the highest ABV beer is Colorado (12.8%), and the state with the highest IBU is Oregon (138).</p>
+<pre class="r"><code>state_maxABV = dataset$State[which.max(dataset$ABV)]
+state_maxIBU = dataset$State[which.max(dataset$IBU)]
+state_maxABV # Colorado
+dataset$ABV[which.max(dataset$ABV)]
+state_maxIBU # Oregon
+dataset$IBU[which.max(dataset$IBU)]
+max_abv = dataset %&gt;% group_by(State) %&gt;% summarize(maxABV = max(ABV))
+max_abv = as.data.frame(max_abv)
+max_ibu = dataset %&gt;% group_by(State) %&gt;% summarize(maxIBU = max(IBU))
+max_ibu = as.data.frame(max_ibu)
+max_data = merge(max_abv, max_ibu, by = &#39;State&#39;)</code></pre>
+<p>This creates a bar chart for maximum ABV and IBU for each state.</p>
+<pre class="r"><code>max_abv %&gt;% ggplot(aes(x = reorder(State, maxABV, fun = median), y = maxABV)) +
+  geom_point(col = &#39;tomato2&#39;, size = 2) +
+  geom_segment(aes(x = max_abv$State,
+                   xend = State,
+                   y = min(max_abv$maxABV),
+                   yend = max(max_abv$maxABV)),
+                   linetype = &#39;dashed&#39;,
+                   size = 0.1) +
+  coord_flip() +
+  ggtitle(&#39;Max ABV By State&#39;) +
+  xlab(&#39;State&#39;) + ylab(&#39;Max ABV&#39;) + 
+  theme(plot.title = element_text(hjust = 0.5))</code></pre>
+<p><img src="CaseStudy1_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<pre class="r"><code>max_ibu %&gt;% ggplot(aes(x = reorder(State, maxIBU, fun = median), y = maxIBU)) +
+  geom_point(col = &#39;tomato2&#39;, size = 2) +
+  geom_segment(aes(x = max_ibu$State,
+                   xend = State,
+                   y = min(max_ibu$maxIBU),
+                   yend = max(max_ibu$maxIBU)),
+                   linetype = &#39;dashed&#39;,
+                   size = 0.1) +
+  coord_flip() +
+  ggtitle(&#39;Max IBU By State&#39;) +
+  xlab(&#39;State&#39;) + ylab(&#39;Max IBU&#39;) + 
+  theme(plot.title = element_text(hjust = 0.5))</code></pre>
+<p><img src="CaseStudy1_files/figure-html/unnamed-chunk-10-2.png" width="672" /></p>
+</div>
+</div>
+</div>
+<div id="this-code-creates-a-heatmap-for-the-max-abv-and-ibu-for-beer-in-each-state." class="section level1">
+<h1>This code creates a heatmap for the max ABV and IBU for beer in each state.</h1>
+<pre class="r"><code># Manipulate variable names to enable merging dataframes
+lookup = data.frame(abb = state.abb, State = state.name)
+colnames(max_data)[1] = &quot;abb&quot;
+max_data2 = merge(max_data,lookup, by =&quot;abb&quot;, all.x = TRUE, no.dups = F)
+max_data2 = max_data2[!max_data2$abb == &#39; DC&#39;,]
+levels(max_data2$State) = levels(lookup$State)
+levels(lookup$abb) = levels(max_data2$abb)
+for (row in 1:nrow(max_data2)){
+  abb = as.character(max_data2$abb[row])
+  abb = trimws(abb)
+  max_data2$State[row] = state.name[which(state.abb == abb)]
+}
+max_data2$region &lt;- tolower(max_data2$State)
+states &lt;- map_data(&quot;state&quot;)
+# Merge dataframes
+map.df &lt;- merge(states,max_data2, by=&quot;region&quot;, all.x=T)
+map.df &lt;- map.df[order(map.df$order),]
+map.df$Percent = map.df$maxABV * 100
+ggplot(map.df, aes(x=long,y=lat,group=group)) + 
+  geom_polygon(aes(fill=maxABV)) +
+  geom_path() + 
+  scale_fill_gradientn(colours=rev(rainbow(10)),na.value=&quot;grey90&quot;) +
+  ggtitle(&quot;Max ABV in Each State&quot;) +  
+  coord_map() + 
+  theme(plot.title = element_text(hjust = 0.5)) + 
+  labs(fill = &#39;ABV (%)&#39;)</code></pre>
+<p><img src="CaseStudy1_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(map.df, aes(x=long,y=lat,group=group)) + 
+  geom_polygon(aes(fill=maxIBU)) +
+  geom_path() + 
+  scale_fill_gradientn(colours=rev(rainbow(10)),na.value=&quot;grey90&quot;) +
+  ggtitle(&quot;Max IBU in Each State&quot;) +  
+  coord_map() + 
+  theme(plot.title = element_text(hjust = 0.5)) +
+  labs(fill = &#39;IBU Rating&#39;)</code></pre>
+<p><img src="CaseStudy1_files/figure-html/unnamed-chunk-11-2.png" width="672" /></p>
+<p>The state with the highest alcohol content beer is Colorado (12.8%) with Kentucky in second at 12.5%. These two states highest ABV beers far exceed the closest states, because they don’t have regulatory limits on the maximum ABV content like the 13 states with a limit of (10%) as seen in the bar plot above.</p>
+<div id="conclusion-2" class="section level4">
+<h4>Conclusion</h4>
+<p>The state with the most bitter beer is Oregon (138 IBU) with Virginia in second at 135. It is interesting to note that Utah does not have the weakest maximum ABV beer given their alcohol laws, but that Arkansas and Tennesse have the weakest maximum ABV beer and lowest maximum IBU. Since these states have no prohibitions on alcohol content, and are not particularly tough on brewers, this must be due to personal preference.</p>
+</div>
+<div id="question-6" class="section level3">
+<h3>Question 6</h3>
+<div id="comment-on-the-summary-statistics-and-distribution-of-abv" class="section level4">
+<h4>Comment on the summary statistics and distribution of ABV</h4>
+<p>This will calculate the summary statistics of ABV for all beers</p>
+<pre class="r"><code># Get summary statistics
+summary(dataset$ABV)
+mean(dataset$ABV)
+sd(dataset$ABV)</code></pre>
+<p>This plots overall distribution of ABV in a histogram.</p>
+<pre class="r"><code># Plot Overall ABV distribution colored by state.
+dataset %&gt;% ggplot(aes()) +geom_histogram(aes(x = dataset$ABV), binwidth = 0.005)</code></pre>
+<p><img src="CaseStudy1_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p>This code selects only popular beer styles (n &gt; 75), then plots histograms of the ABV and IBU’s by style.</p>
+<pre class="r"><code>popular_beers_tibble = count(dataset, Style)
+popular_beers_tibble = popular_beers_tibble %&gt;% filter(popular_beers_tibble$n &gt; 75)
+popular_beers = merge(dataset, popular_beers_tibble, by = &#39;Style&#39;, all.x = FALSE, all.y = TRUE)
+popular_beers %&gt;% ggplot() + 
+  geom_histogram(aes(x = popular_beers$ABV * 100, fill = Style)) + 
+  facet_wrap(popular_beers$Style) + theme(legend.position = &#39;none&#39;) +
+  xlab(&#39;ABV (%)&#39;)</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="CaseStudy1_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<pre class="r"><code>popular_beers %&gt;% ggplot() + geom_histogram(aes(x = popular_beers$IBU, fill = Style)) + 
+  facet_wrap(popular_beers$Style) + 
+  theme(legend.position = &#39;none&#39;) +
+  xlab(&#39;IBU Rating&#39;)</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="CaseStudy1_files/figure-html/unnamed-chunk-14-2.png" width="672" /></p>
+</div>
+<div id="conclusion-3" class="section level4">
+<h4>Conclusion</h4>
+<p>The most common ABV is about 5-5.5%, but there is a niche market for beers with higher ABV’s in the range of 6-10%. Since most people do not buy a beer because of its alcohol content, this is an interesting revelation that warrants further investigation. The plots of popular beers show that many of the most popular beers have a bitterness rating well above the national median. This relationship is explored further.</p>
+</div>
+</div>
+<div id="question-7" class="section level3">
+<h3>Question 7</h3>
+<div id="is-there-an-apparent-relationship-between-beer-bitterness-and-alcohol-content" class="section level4">
+<h4>Is there an apparent relationship between beer bitterness and alcohol content?</h4>
+<p>This code creates a scatterplot of ABV vs IBU for all beers.</p>
+<pre class="r"><code>dataset %&gt;% ggplot(aes(x = ABV * 100, y = IBU)) + 
+  geom_point(position = &#39;jitter&#39;) + 
+  stat_smooth(method = &#39;lm&#39;, se = FALSE) +
+  ggtitle(&quot;Relationship Between IBU and ABV&quot;) + 
+  theme(legend.position = &#39;none&#39;, plot.title = element_text(hjust = 0.5)) +
+  xlab(&#39;ABV (%)&#39;)</code></pre>
+<p><img src="CaseStudy1_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+</div>
+<div id="findings" class="section level4">
+<h4>Findings</h4>
+<p>There does seem to be a general positive relationship between alcohol content and bitterness, but the divergeance from the model at higher ABV levels indicate that there are other factors at play. The beers were divided into IPAs and ales and the relationship was explored again.</p>
+<p>This code explores the ABV-IBU relationship of specific beer styles (IPA’s and Ales) to get more insights into the relationship, which appears more complicated than initially thought. The two styles analyzed display different relationships.</p>
+<pre class="r"><code># Create datasets for IPA&#39;s and Ales, remove any IPA&#39;s that are in ale dataset. Condense beers into 2 styles, IPA and Ale, then combine into a single dataframe
+ipa_dataset = dataset %&gt;% filter(grepl(&#39;.*IPA.*&#39;, dataset$Style))
+ale_dataset = dataset %&gt;% filter(grepl(&#39;.*Ale.*&#39;, dataset$Style))
+ale_dataset = ale_dataset %&gt;% filter(!grepl(&#39;.*IPA.*&#39;, ale_dataset$Style))
+ipa_dataset$Style = c(&#39;IPA&#39;)
+ale_dataset$Style = c(&#39;Ale&#39;)
+ipa_ale_dataset = rbind(ipa_dataset, ale_dataset)
+ipa_ale_dataset %&gt;% ggplot(aes(x = ABV * 100, y = IBU, color = Style)) + 
+  geom_point(position = &#39;jitter&#39;) + 
+  ggtitle(&#39;Alcohol Content vs Bitterness&#39;) + 
+  scale_color_manual(values = c(&#39;red&#39;, &#39;blue&#39;)) + 
+  theme(plot.title = element_text(hjust = 0.5)) +
+  stat_smooth(method = &#39;lm&#39;, se = FALSE) + 
+  xlab(&#39;ABV (%)&#39;)</code></pre>
+<p><img src="CaseStudy1_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+</div>
+<div id="conclusion-4" class="section level4">
+<h4>Conclusion</h4>
+<p>When the beers were divided into IPAs and ales different relationships were noticed. While they both are positive, they are different enough to indicate that they may not be directly correlated, and that beer style may determine the relationship between ABV and IBU.</p>
+</div>
+</div>
+<div id="question-8" class="section level3">
+<h3>Question 8</h3>
+<div id="investigate-the-difference-with-respect-to-ibu-and-abv-between-ipas-and-all-other-ales-excluding-ipas.-use-knn.-may-supplement-with-other-approaches." class="section level4">
+<h4>Investigate the difference with respect to IBU and ABV between IPAs and all other Ales (excluding IPA’s). Use KNN. May supplement with other approaches.</h4>
+<p>This code creates a subset of the data containing only IPA’s and all other Ales combined in a common ‘Ale’ group, then splits this subset into a training set and a test set.</p>
+<pre class="r"><code># Filter into two groups: IPA and Ale
+ipa_dataset = dataset %&gt;% filter(grepl(&#39;.*IPA.*&#39;, dataset$Style))
+ale_dataset = dataset %&gt;% filter(grepl(&#39;.*Ale.*&#39;, dataset$Style))
+ale_dataset = ale_dataset %&gt;% filter(!grepl(&#39;.*IPA.*&#39;, ale_dataset$Style))
+ipa_dataset$Style = c(&#39;IPA&#39;)
+ale_dataset$Style = c(&#39;Ale&#39;)
+ipa_ale_dataset = rbind(ipa_dataset, ale_dataset)
+splitpercent = .70
+trainIndices = sample(1:dim(ipa_ale_dataset)[1], round(splitpercent * dim(ipa_ale_dataset)[1]))
+train = ipa_ale_dataset[trainIndices,]
+test = ipa_ale_dataset[-trainIndices,]</code></pre>
+<p>This code iterates through multiple dataset samples and k-values to estimate the optimum K-value (k = 5). This will allow us to fit the best possible model for the given data.</p>
+<pre class="r"><code>iterations = 100
+numks = 30
+masteracc = matrix(nrow = iterations, ncol = numks)
+splitpercent = .70
+for(j in 1:iterations)
+{ 
+  accs = data.frame(accuracy = numeric(numks), k = numeric(numks))
+  trainIndices = sample(1:dim(ipa_ale_dataset)[1], round(splitpercent * dim(ipa_ale_dataset)[1]))
+  train = ipa_ale_dataset[trainIndices,]
+  test = ipa_ale_dataset[-trainIndices,]
+    
+  for (i in 1:numks)
+    {
+    classifications = knn(train[,c(7,8)],test[,c(7,8)],train$Style, prob = TRUE, k = i)
+    tab = table(classifications,test$Style)
+    CM = confusionMatrix(tab)
+    masteracc[j,i] = CM$overall[1]
+  }
+}
+MeanAcc = colMeans(masteracc)
+plot(seq(1,numks,1), MeanAcc, type = &#39;l&#39;)</code></pre>
+<p><img src="CaseStudy1_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p>This code runs the classifier model and outputs the performance metrics of the model. The model selected was the K-NN model with k = 5. The model selects the 5 closest beers, in terms of ABV and IBU, to each beer in the test set, and assigns the majority style to the beer in question.</p>
+<pre class="r"><code>classifications = knn(train[,c(7,8)],test[,c(7,8)],train$Style, prob = TRUE, k = 5)
+CM = confusionMatrix(table(test$Style,classifications))
+CM</code></pre>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##      classifications
+##       Ale IPA
+##   Ale 270  26
+##   IPA  27 137
+##                                          
+##                Accuracy : 0.8848         
+##                  95% CI : (0.852, 0.9125)
+##     No Information Rate : 0.6457         
+##     P-Value [Acc &gt; NIR] : &lt;2e-16         
+##                                          
+##                   Kappa : 0.7485         
+##                                          
+##  Mcnemar&#39;s Test P-Value : 1              
+##                                          
+##             Sensitivity : 0.9091         
+##             Specificity : 0.8405         
+##          Pos Pred Value : 0.9122         
+##          Neg Pred Value : 0.8354         
+##              Prevalence : 0.6457         
+##          Detection Rate : 0.5870         
+##    Detection Prevalence : 0.6435         
+##       Balanced Accuracy : 0.8748         
+##                                          
+##        &#39;Positive&#39; Class : Ale            
+## </code></pre>
+<p>This model had a very high accuracy of ~ 90%, but it may not be the best model. We decided to try a leave-one out cross validation model to get better results.</p>
+<p>This code runs a Leave one out cross validation model over multiple data samples and k-values to determine the optimum K (k = 5 is optimum). This model is similar to the previous one, but utilizes the entire dataset to train instead of 70% of the data.</p>
+<pre class="r"><code>accs = data.frame(accuracy = numeric(90), k = numeric(90))
+for (i in 1:90)
+{
+  classifications = knn.cv(ipa_ale_dataset[,c(7,8)], ipa_ale_dataset$Style, prob = TRUE, k = i)
+  CM = confusionMatrix(table(classifications, ipa_ale_dataset$Style))
+  accs$accuracy[i] = CM$overal[1]
+  accs$k[i] = i
+}
+plot(accs$k, accs$accuracy, type = &#39;l&#39;, xlab = &#39;k&#39;)</code></pre>
+<p><img src="CaseStudy1_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p>Now we run our model to determine the performance metrics for the new model. This model achieves slightly better accuracy than the previous model, since it uses more data to train the model.</p>
+<pre class="r"><code>classifications = knn.cv(ipa_ale_dataset[,c(7,8)], ipa_ale_dataset$Style, prob = TRUE, k = 5)
+CM = confusionMatrix(table(classifications, ipa_ale_dataset$Style))
+CM</code></pre>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##                
+## classifications Ale IPA
+##             Ale 895  64
+##             IPA  68 507
+##                                           
+##                Accuracy : 0.914           
+##                  95% CI : (0.8988, 0.9275)
+##     No Information Rate : 0.6278          
+##     P-Value [Acc &gt; NIR] : &lt;2e-16          
+##                                           
+##                   Kappa : 0.8161          
+##                                           
+##  Mcnemar&#39;s Test P-Value : 0.794           
+##                                           
+##             Sensitivity : 0.9294          
+##             Specificity : 0.8879          
+##          Pos Pred Value : 0.9333          
+##          Neg Pred Value : 0.8817          
+##              Prevalence : 0.6278          
+##          Detection Rate : 0.5834          
+##    Detection Prevalence : 0.6252          
+##       Balanced Accuracy : 0.9087          
+##                                           
+##        &#39;Positive&#39; Class : Ale             
+## </code></pre>
+<p>This model performed slightly better than the previous, with an accuracy consistently above 90%. The results of this model can now be visualized to gain insights from the data.</p>
+<p>This creates a dataframe that stores the performance metrics of our KNN model, to be used to analyze the results. It includes the model classifications, probabilities, the beer’s true style, ABV, and IBU.</p>
+<pre class="r"><code>class_df = data.frame(&#39;classification&#39; = classifications)
+probability = attributes(classifications)[3][1]
+probability = unlist(probability[1])
+for (var in probability){
+  attr(probability, &#39;names&#39;) &lt;- NULL
+}
+class_df = cbind(class_df, probability)
+class_df = cbind(ipa_ale_dataset$Style, class_df, ipa_ale_dataset$ABV, ipa_ale_dataset$IBU)
+names(class_df) = c(&#39;Truth&#39;, &#39;Classification&#39;, &#39;Probability&#39;, &#39;ABV&#39;, &#39;IBU&#39;)
+class_df$Correct = ifelse(class_df$Truth == class_df$Classification, &#39;Correct Prediction&#39;, &#39;Incorrect Prediction&#39;)
+class_df$Correct = ordered(class_df$Correct, levels = c(&quot;Incorrect Prediction&quot;, &quot;Correct Prediction&quot;))
+class_df$Numeric = ifelse(class_df$Truth == &#39;IPA&#39;, 1, 0)
+class_df$AleProb = ifelse(class_df$Classification == &#39;Ale&#39;, class_df$Probability, 1 - class_df$Probability)</code></pre>
+<p>Create a 3D plot Comparing ABV and IBU to the probability of being an Ale colored by the models prediction accuracy. This demonstrates that the probability of being an Ale is not affected by ABV, but shows a significant visual correlation between IBU and probability of being an Ale. The model errors are fairly evenly distributed across IBU and ABV indicating a complex relationship that is not fully captured by these two variables.</p>
+<pre class="r"><code>library(plotly)
+class_df$`Ale Probability`= class_df$AleProb * 100
+model_plot &lt;- plot_ly(class_df, x = ~ABV, y = ~IBU, z = ~`Ale Probability`, color = ~Correct, colors = &#39;Set1&#39;)
+model_plot &lt;- model_plot %&gt;% add_markers()
+model_plot &lt;- model_plot %&gt;% layout(title = &#39;Predicted Style By ABV and IBU&#39;, scene = list(xaxis = list(title = &#39;ABV&#39;),
+                                  yaxis = list(title = &#39;IBU&#39;),
+                                  zaxis = list(title = &#39;Probability of Being an Ale (%)&#39;)))
+model_plot</code></pre>
+<div id="htmlwidget-c75463cad02f77af9fac" style="width:672px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c75463cad02f77af9fac">{"x":{"visdat":{"33304c22d4":["function () ","plotlyVisDat"]},"cur_data":"33304c22d4","attrs":{"33304c22d4":{"x":{},"y":{},"z":{},"color":{},"colors":"Set1","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter3d","mode":"markers","inherit":true}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Predicted Style By ABV and IBU","scene":{"xaxis":{"title":"ABV"},"yaxis":{"title":"IBU"},"zaxis":{"title":"Probability of Being an Ale (%)"}},"hovermode":"closest","showlegend":true},"source":"A","config":{"showSendToCloud":false},"data":[{"x":[0.08,0.06,0.076,0.075,0.08,0.08,0.063,0.097,0.077,0.071,0.05,0.071,0.07,0.062,0.062,0.05,0.055,0.053,0.093,0.065,0.093,0.06,0.065,0.097,0.067,0.048,0.07,0.058,0.072,0.06,0.085,0.06,0.064,0.099,0.068,0.072,0.075,0.064,0.063,0.091,0.0713529411764706,0.064,0.064,0.075,0.07,0.069,0.065,0.068,0.085,0.091,0.065,0.07,0.07,0.062,0.06,0.05,0.099,0.07,0.07,0.07,0.065,0.059,0.063,0.08,0.075,0.075,0.055,0.045,0.05,0.05,0.062,0.062,0.065,0.068,0.063,0.072,0.064,0.099,0.064,0.065,0.091,0.067,0.05,0.075,0.045,0.064,0.07,0.099,0.072,0.083,0.044,0.063,0.096,0.083,0.068,0.065,0.065,0.062,0.097,0.072,0.073,0.075,0.082,0.085,0.083,0.075,0.075,0.075,0.08,0.059,0.07,0.07,0.071,0.085,0.05,0.075,0.065,0.063,0.072,0.062,0.07,0.066,0.066,0.06,0.062,0.065,0.065,0.065,0.072,0.072,0.085,0.063,0.069,0.099,0.065,0.07,0.072,0.07,0.052,0.075,0.068,0.092,0.089,0.0645275779376499,0.065,0.06,0.068,0.07,0.067,0.066,0.07,0.068,0.066,0.065,0.07,0.07,0.099,0.069,0.07,0.067,0.082,0.099,0.085,0.092,0.085,0.057,0.075,0.066,0.095,0.06,0.085,0.07,0.063,0.075,0.077,0.07,0.07,0.075,0.07,0.045,0.075,0.062,0.075,0.07,0.07,0.065,0.06,0.067,0.067,0.07,0.062,0.061,0.061,0.061,0.068,0.061,0.061,0.073,0.073,0.067,0.08,0.08,0.06,0.063,0.062,0.062,0.085,0.0645275779376499,0.0645275779376499,0.087,0.08,0.087,0.099,0.085,0.087,0.087,0.09,0.058,0.062,0.07,0.07,0.081,0.082,0.082,0.085,0.027,0.065,0.088,0.079,0.096,0.096,0.062,0.071,0.085,0.09,0.086,0.075,0.065,0.057,0.07,0.068,0.07,0.07,0.062,0.062,0.062,0.068,0.062,0.059,0.065,0.063,0.065,0.069,0.069,0.069,0.051,0.06,0.072,0.072,0.062,0.065,0.062,0.067,0.074,0.045,0.065,0.071,0.068,0.075,0.066,0.071,0.06,0.09,0.071,0.069,0.064,0.07,0.095,0.069,0.078,0.063,0.057,0.063,0.07,0.065,0.092,0.07,0.055,0.09,0.093,0.059,0.059,0.059,0.07,0.086,0.07,0.062,0.068,0.08,0.094,0.074,0.08,0.08,0.07,0.06,0.089,0.07,0.069,0.09,0.075,0.067,0.07,0.068,0.045,0.068,0.062,0.059,0.043,0.096,0.07,0.08,0.08,0.068,0.06,0.076,0.088,0.065,0.045,0.075,0.087,0.076,0.068,0.069,0.073,0.069,0.069,0.06,0.085,0.06,0.065,0.065,0.065,0.06,0.075,0.09,0.06,0.06,0.09,0.08,0.088,0.062,0.072,0.063,0.092,0.079,0.063,0.063,0.065,0.071,0.07,0.063,0.0645275779376499,0.072,0.097,0.067,0.073,0.069,0.066,0.07,0.06,0.052,0.052,0.072,0.067,0.062,0.062,0.065,0.061,0.048,0.06,0.075,0.059,0.056,0.064,0.08,0.099,0.042,0.072,0.095,0.077,0.07,0.085,0.055,0.072,0.072,0.067,0.082,0.082,0.082,0.068,0.07,0.07,0.07,0.07,0.097,0.07,0.078,0.078,0.045,0.068,0.07,0.084,0.062,0.082,0.068,0.062,0.07,0.065,0.096,0.0873689320388349,0.065,0.065,0.068,0.069,0.085,0.085,0.065,0.08,0.087,0.066,0.071,0.07,0.06,0.04,0.062,0.07,0.068,0.088,0.088,0.062,0.062,0.072,0.062,0.08,0.062,0.06,0.074,0.06,0.072,0.055,0.068,0.068,0.061,0.062,0.098,0.08,0.05,0.05,0.063,0.065,0.065,0.065,0.07,0.07,0.068,0.04,0.065,0.078,0.07,0.068,0.07,0.093,0.06,0.064,0.059,0.084,0.068,0.068,0.07,0.071,0.061,0.07,0.072,0.066,0.092,0.087,0.072,0.0623333333333333,0.074,0.087,0.06,0.062,0.071,0.07,0.057,0.06,0.08,0.0873689320388349,0.0645275779376499,0.065,0.065,0.0645275779376499,0.057,0.065,0.0645275779376499,0.068,0.068,0.06,0.048,0.042,0.066,0.04,0.05,0.051,0.065,0.06,0.063,0.056,0.047,0.062,0.06,0.061,0.087,0.073,0.05,0.052,0.067,0.067,0.0745,0.05,0.065,0.05,0.0611739130434783,0.085,0.09,0.06,0.055,0.06,0.06,0.062,0.067,0.059,0.062,0.082,0.065,0.098,0.073,0.092,0.09,0.09,0.062,0.059,0.068,0.052,0.055,0.058,0.055,0.048,0.05,0.045,0.05,0.051,0.058,0.054,0.05,0.06,0.055,0.068,0.068,0.065,0.055,0.065,0.09,0.099,0.083,0.09,0.053,0.056,0.053,0.054,0.058,0.056,0.054,0.09,0.08,0.07,0.054,0.052,0.049,0.051,0.052,0.09,0.05,0.051,0.055,0.055,0.06,0.055,0.05,0.055,0.055,0.055,0.06,0.069,0.052,0.045,0.055,0.064,0.043,0.053,0.08,0.081,0.08,0.051,0.048,0.055,0.068,0.044,0.044,0.052,0.05,0.056,0.05,0.048,0.052,0.06,0.047,0.052,0.08,0.052,0.049,0.047,0.047,0.054,0.077,0.06,0.068,0.075,0.076,0.075,0.058,0.067,0.065,0.057,0.055,0.054,0.045,0.049,0.049,0.047,0.055,0.05,0.06,0.055,0.055,0.045,0.05,0.067,0.051,0.051,0.05,0.057456,0.057456,0.075,0.052,0.06,0.06,0.053,0.065,0.065,0.068,0.05,0.059,0.051,0.047,0.055,0.055,0.045,0.057,0.051,0.058,0.065,0.058,0.06,0.06,0.058,0.058,0.058,0.0484105263157895,0.0545774058577406,0.057456,0.048,0.046,0.039,0.039,0.039,0.039,0.039,0.039,0.039,0.039,0.039,0.039,0.039,0.058,0.039,0.058,0.052,0.048,0.052,0.052,0.052,0.052,0.048,0.052,0.056,0.056,0.048,0.0663333333333333,0.057456,0.0545774058577406,0.0579264705882353,0.0496346153846154,0.0579264705882353,0.053,0.048,0.054,0.042,0.054,0.042,0.042,0.061,0.043,0.06,0.07,0.05,0.067,0.05,0.055,0.048,0.043,0.054,0.058,0.05,0.055,0.052,0.052,0.051,0.049,0.058,0.057,0.05,0.057,0.047,0.058,0.047,0.053,0.048,0.058,0.047,0.075,0.05,0.05,0.052,0.045,0.058,0.062,0.053,0.072,0.055,0.05,0.055,0.05,0.065,0.056,0.052,0.049,0.045,0.05,0.05,0.065,0.066,0.055,0.075,0.048,0.06,0.052,0.059,0.051,0.051,0.06,0.068,0.05,0.052,0.05,0.054,0.035,0.054,0.054,0.052,0.05,0.0528571428571429,0.052,0.05,0.058,0.058,0.05,0.059,0.059,0.052,0.055,0.048,0.063,0.055,0.05,0.055,0.055,0.052,0.055,0.048,0.041,0.052,0.049,0.042,0.05,0.042,0.06,0.056,0.051,0.092,0.051,0.087,0.061,0.054,0.057456,0.055,0.055,0.045,0.045,0.04,0.056,0.056,0.056,0.056,0.054,0.054,0.056,0.056,0.058,0.054,0.04,0.05,0.04,0.04,0.06,0.05,0.05,0.05,0.038,0.071,0.051,0.099,0.056,0.072,0.042,0.045,0.053,0.06,0.053,0.053,0.08,0.065,0.09,0.065,0.065,0.05,0.08,0.065,0.065,0.065,0.08,0.07,0.065,0.052,0.065,0.047,0.065,0.056,0.049,0.06,0.056,0.042,0.056,0.058,0.055,0.058,0.058,0.056,0.055,0.055,0.05,0.049,0.039,0.06,0.058,0.06,0.055,0.058,0.073,0.058,0.073,0.069,0.055,0.066,0.072,0.045,0.051,0.068,0.057,0.053,0.063,0.063,0.053,0.077,0.06,0.077,0.053,0.048,0.052,0.042,0.052,0.054,0.046,0.052,0.057,0.05,0.052,0.042,0.05,0.068,0.055,0.049,0.049,0.049,0.06,0.047,0.075,0.05,0.075,0.052,0.042,0.054,0.064,0.083,0.049,0.064,0.054,0.042,0.058,0.055,0.052,0.062,0.052,0.055,0.047,0.052,0.055,0.045,0.065,0.055,0.049,0.043,0.055,0.06,0.063,0.055,0.053,0.065,0.05,0.055,0.081,0.058,0.05,0.08,0.05,0.07,0.06,0.049,0.05,0.059,0.055,0.099,0.05,0.059,0.048,0.05,0.049,0.052,0.044,0.042,0.059,0.058,0.055,0.056,0.052,0.055,0.06,0.038,0.051,0.045,0.052,0.055,0.045,0.045,0.054,0.056,0.045,0.05,0.05,0.086,0.055,0.047,0.08,0.055,0.05,0.08,0.04,0.082,0.055,0.05,0.073,0.061,0.053,0.06,0.055,0.049,0.046,0.052,0.053,0.06,0.053,0.056,0.046,0.054,0.053,0.078,0.045,0.052,0.0523333333333333,0.05,0.051,0.065,0.051,0.078,0.06,0.06,0.052,0.052,0.051,0.047,0.047,0.049,0.047,0.055,0.066,0.078,0.052,0.047,0.051,0.042,0.047,0.05,0.055,0.055,0.047,0.053,0.055,0.045,0.065,0.048,0.065,0.046,0.04,0.04,0.055,0.048,0.055,0.042,0.055,0.05,0.052,0.055,0.043,0.046,0.05,0.055,0.058,0.045,0.045,0.055,0.07,0.08,0.049,0.05,0.063,0.035,0.045,0.055,0.092,0.075,0.045,0.057,0.047,0.055,0.052,0.042,0.06,0.063,0.057,0.052,0.063,0.056,0.056,0.05,0.05,0.05,0.045,0.051,0.05,0.05,0.047,0.05,0.05,0.051,0.051,0.05,0.057,0.048,0.061,0.053,0.044,0.056,0.06,0.066,0.05,0.077,0.08,0.073,0.056,0.045,0.055,0.05,0.051,0.062,0.048,0.045,0.052,0.05,0.056,0.045,0.049,0.055,0.045,0.066,0.053,0.07,0.054,0.048,0.048,0.054,0.048,0.05,0.053,0.07,0.053,0.053,0.05,0.044,0.044,0.083,0.05,0.06,0.05,0.049,0.051,0.056,0.06,0.05,0.06,0.051,0.055,0.06,0.055,0.049,0.055,0.064,0.055,0.08,0.045,0.05,0.046,0.059,0.059,0.055,0.051,0.051,0.047,0.062,0.05,0.0496346153846154,0.056,0.053,0.053,0.074,0.074,0.08,0.065,0.065,0.054,0.045,0.042,0.055,0.045,0.053,0.053,0.06,0.056,0.073,0.056,0.073,0.05,0.04,0.04,0.05,0.055,0.054,0.05,0.063,0.052,0.054,0.056,0.05,0.05,0.09,0.09,0.07,0.051,0.047,0.049,0.049,0.057,0.044,0.058,0.063,0.052,0.055,0.052,0.055,0.051,0.05,0.05,0.055,0.07,0.048,0.045,0.045,0.058,0.047,0.048,0.0545774058577406,0.053,0.052,0.055,0.053,0.065,0.056,0.059,0.037,0.05,0.05,0.05,0.05,0.05,0.058,0.056,0.05,0.048,0.052,0.059,0.048,0.046,0.058,0.05,0.058,0.05,0.065,0.056,0.045,0.06,0.06,0.07,0.05,0.0484105263157895,0.0545774058577406,0.047,0.0545774058577406,0.047,0.047,0.047,0.047,0.065,0.06,0.05,0.095,0.06,0.072,0.06,0.056,0.058,0.06,0.055,0.057,0.054,0.054,0.056,0.044,0.05,0.051,0.051,0.058,0.057456,0.044,0.07,0.054,0.0689714285714286,0.074,0.045,0.048,0.052,0.05,0.055,0.058,0.0415,0.0496346153846154,0.057456,0.044,0.055,0.052,0.065,0.08,0.065,0.065,0.08,0.065,0.065,0.08,0.035,0.04,0.05,0.04,0.047,0.065,0.055,0.065,0.05,0.052,0.058,0.054,0.048,0.056,0.054,0.064,0.068,0.056,0.08,0.045,0.053,0.045,0.0545774058577406,0.0415,0.045,0.0496346153846154,0.054,0.05,0.057,0.05,0.045,0.05,0.062,0.054,0.053,0.056,0.055,0.057456,0.05,0.05,0.072,0.042,0.06,0.056,0.043,0.049],"y":[68,65,68,85,100,100,42,93.32,67.6345514950166,67.6345514950166,67.6345514950166,67.6345514950166,67.6345514950166,67.6345514950166,57,57,57,57,93.32,57,57,67.6345514950166,57,57,74,47,51,72,65,104,115,67.6345514950166,90,115,67.6345514950166,86,77,75,75,91,57,75,75,77,61,65,67.6345514950166,70,90,99,57,85,85,80,67.6345514950166,67.6345514950166,101,75,67.6345514950166,70,67.6345514950166,67.6345514950166,69,93.32,63,60,67.6345514950166,67.6345514950166,100,67.6345514950166,48.8333333333333,67.6345514950166,70,110,60,93,62,111,62,62,103,74,67.6345514950166,75,47,67.6345514950166,70,90,67.6345514950166,93.32,44,76,85,100,67.6345514950166,67.6345514950166,67.6345514950166,99,120,67.6345514950166,69,90,68,57,93.32,67.6345514950166,67.6345514950166,57,67.6345514950166,70,82,57,75,90,62,115,67.6345514950166,69,87,68,67.6345514950166,75,75,60,67.6345514950166,70,70,70,65,65,69,65,70,93.32,67.6345514950166,67.6345514950166,75,67.6345514950166,67,85,66,75,126,67.6345514950166,75,70,85,70,70,72,94,67.6345514950166,72,82,100,100,100,67.6345514950166,88,60,103,100,110,100,110,58,67.6345514950166,70,85,75,100,70,64,89,65,60,60,70,60,67.6345514950166,70,65,70,60,60,67.6345514950166,67.6345514950166,70,70,60,82,94,94,94,100,60,67.6345514950166,82,83,47,93.32,93.32,70,67.6345514950166,60,60,67.6345514950166,67.6345514950166,67.6345514950166,85,93.32,85,100,67.6345514950166,85,85,60,67.6345514950166,80,80,80,93.32,93.32,80,93.32,67.6345514950166,67.6345514950166,93.32,93.32,93.32,93.32,67.6345514950166,67.6345514950166,57,93.32,93.32,67.6345514950166,67.6345514950166,54.7142857142857,73,100,68,70,70,70,70,60,70,55,90,70,90,69,69,93.32,67.6345514950166,67.6345514950166,75,75,62,77,67.6345514950166,67.6345514950166,97,67.6345514950166,67.6345514950166,67.6345514950166,75,85,54.7142857142857,60,67.6345514950166,118,69,65,66,80,104,81,80,61,70,61,80,80,115,67.6345514950166,64,130,90,42,42,42,67.6345514950166,93.32,65,61,65,70,92,74,70,70,75,60,88,54.7142857142857,69,93.32,67.6345514950166,70,67.6345514950166,65,67.6345514950166,65,72,42,67.6345514950166,93.32,67.6345514950166,120,120,90,67.6345514950166,65,77,67.6345514950166,44,51,80,73,66,67,87,69,67.6345514950166,55,85,55,75,60,60,67.6345514950166,67.6345514950166,75,48.8333333333333,48.8333333333333,75,80,108,65,60,100,93.32,93.32,100,100,72,92,70,67.6345514950166,67.6345514950166,67.6345514950166,93.32,60,85,51,67.6345514950166,67.6345514950166,54.7142857142857,67.6345514950166,67.6345514950166,100,70,65,65,69,64,67.6345514950166,64,70,135,70,95,88,93,48.8333333333333,85,99,67.6345514950166,75,85,67.6345514950166,67.6345514950166,80,67.6345514950166,100,100,100,67.6345514950166,70,70,70,65,94,70,74,74,67.6345514950166,67.6345514950166,113,90,67.6345514950166,138,68,65,80,67.6345514950166,93.32,93.32,52,52,65,65,86,86,67.6345514950166,85,85,67.6345514950166,62,67.6345514950166,67.6345514950166,67.6345514950166,67.6345514950166,70,67.6345514950166,85,85,67.6345514950166,67.6345514950166,70,67.6345514950166,86,65,54.7142857142857,60,48.8333333333333,93.32,65,47,47,66,67.6345514950166,76,95,44,44,67.6345514950166,67.6345514950166,67.6345514950166,71,67.6345514950166,75,67.6345514950166,67.6345514950166,80,67.6345514950166,70,67.6345514950166,67.6345514950166,103,64,67.6345514950166,75,82,75,70,80,85,64,105,67.6345514950166,100,85,60,67.6345514950166,54.7142857142857,83,93.32,55,65,60,67,67.6345514950166,69,57,93.32,67.6345514950166,52,67.6345514950166,67.6345514950166,67.6345514950166,70,67.6345514950166,67.6345514950166,67.6345514950166,38,19,42,21,13,20,38,27,24,30,16,19,29.8947368421053,44.9411764705882,20.6885245901639,40,28.3913043478261,44.9411764705882,44.9411764705882,29.6666666666667,29.6666666666667,29.6666666666667,23.875,29.6666666666667,68.9,23.875,72,28.3913043478261,23.875,28.3913043478261,23.875,36.2987012987013,29.6666666666667,28.3913043478261,28.3913043478261,36.2987012987013,25,28.3913043478261,29.6666666666667,27,27,28.3913043478261,28.3913043478261,29.6666666666667,25,29.8947368421053,20.6885245901639,20.3333333333333,68.9,10,15,40,29.8947368421053,27,22,44.9411764705882,37,23.875,20.3333333333333,40,16,68.9,29.8947368421053,40,20.6885245901639,30,36,23,30,23,50,20,26.9090909090909,20,50,23,30,25,29.8947368421053,23,44.9411764705882,23,20.6885245901639,18,72,18,36,45,20,20.6885245901639,20,15,45,45,44.9411764705882,20.983606557377,34,35,20.6885245901639,17,28.3913043478261,44.9411764705882,20.983606557377,24.8181818181818,36.2987012987013,36.2987012987013,26.9090909090909,44.9411764705882,40,23.875,12,22,44.9411764705882,20,20,20,20,34,48,50,34,23.875,11,35,20.983606557377,20,44.9411764705882,24.8181818181818,28.3913043478261,24,30,29.8947368421053,30,44.9411764705882,23.2,36.2987012987013,27,44.9411764705882,45,44.9411764705882,22,22,55,23.2,36.2987012987013,36.2987012987013,29.8947368421053,68.9,18,28,33,45,45,20,36.2987012987013,36.2987012987013,25,25,44.9411764705882,46,44.9411764705882,28.3913043478261,33,36.2987012987013,20.983606557377,36.2987012987013,17,19,45,44.9411764705882,8,44.9411764705882,36,43,44.9411764705882,43,34,68.9,20.6885245901639,20.6885245901639,29.8947368421053,20.6885245901639,44.9411764705882,36.2987012987013,16,20,20,20,20,20,20,20,20,20,20,20,20,60,20,60,44.9411764705882,20.6885245901639,20.6885245901639,18,18,18,20.6885245901639,18,37,37,26,26.9090909090909,36.2987012987013,44.9411764705882,29.8947368421053,20.983606557377,29.8947368421053,36.2987012987013,11,30,18,30,18,20,36.2987012987013,18,30,32,40,23.2,36.2987012987013,42,25,45,20,29.8947368421053,23.875,36.2987012987013,24,24,36.2987012987013,20.983606557377,45,40,28,36,20.983606557377,29.8947368421053,20.983606557377,45,20.983606557377,44.9411764705882,20.983606557377,22,25,40,21,16,35,33,36,40,28.3913043478261,20,28.3913043478261,20,65,20.6885245901639,42,20.983606557377,6,35,25,25,20,40,33,25,44.9411764705882,23,31.4,21,21,50,68.9,7,9,7,33,20.983606557377,32,33,7,7,20.3333333333333,36.2987012987013,20,60,60,20,14,14,36.2987012987013,42,32,44.9411764705882,29.8947368421053,44.9411764705882,25,25,20.6885245901639,44.9411764705882,18,20.3333333333333,44.9411764705882,29.8947368421053,24,22,24,24.8181818181818,31.4,44.9411764705882,72,44.9411764705882,29,30,24,36.2987012987013,20.983606557377,37,18,28,18,55,55,55,55,24,24,55,55,36.2987012987013,44.9411764705882,29,10,17,34,21,20,28.3913043478261,35,20.3333333333333,36,44.9411764705882,25,40,68.9,26,36,22,25,22,22,25,65,29.6666666666667,65,65,23.2,24.2307692307692,65,65,65,35,29.8947368421053,65,44.9411764705882,65,22,44.9411764705882,44.9411764705882,25,24.8181818181818,4,44.9411764705882,4,15,28,15,15,4,44.9411764705882,44.9411764705882,44.9411764705882,20.983606557377,22,36.2987012987013,28,44.9411764705882,20.6885245901639,44.9411764705882,44.9411764705882,60,28.3913043478261,28.3913043478261,44.9411764705882,44.9411764705882,28.3913043478261,44.9411764705882,45,21,20,25,35,35,25,40,53,40,20,35,21,44.9411764705882,27,20,20.6885245901639,27,36,22,32,20.6885245901639,44.9411764705882,23.875,40,20,20,20,50,20.6885245901639,53,26.9090909090909,53,23,22,42,29.8947368421053,42.7398431931575,20.983606557377,29.8947368421053,44.9411764705882,20.6885245901639,44.9411764705882,44.9411764705882,23.875,68.9,40,30,46,50,20.3333333333333,20.983606557377,36.2987012987013,29.8947368421053,21,21,35,40,23,35,28.3913043478261,28.3913043478261,12,36.2987012987013,17,38,24,24.2307692307692,15,23.875,44.9411764705882,15,26,36.2987012987013,30,43,50,20,10,36.2987012987013,20.983606557377,26,45,35,28.3913043478261,35,20,30,50,20,30,18,31,35,18,30,23.2,20.983606557377,29.8947368421053,36.2987012987013,28.3913043478261,68.9,68.9,72,44.9411764705882,20.983606557377,72,44.9411764705882,22,28.3913043478261,39,36.2987012987013,55,23.875,23.875,44.9411764705882,20.983606557377,30,35,10,30,49,40,27,22,28,27,45,20,28.3913043478261,20.983606557377,36.2987012987013,27.6,16,24,20,24,16,43,23.2,20,40,36.2987012987013,44.9411764705882,20.6885245901639,28,20.6885245901639,35,44,34,20,20.6885245901639,17,25,28,12,31.4,31.4,20.6885245901639,7,44.9411764705882,20.6885245901639,20.983606557377,20.6885245901639,65,20,44.9411764705882,44.9411764705882,36.2987012987013,35,25,35,28,21,32,28.3913043478261,20.983606557377,12,44.9411764705882,37,39,18,18,20,68.9,26.9090909090909,20.983606557377,44.9411764705882,44.9411764705882,45,44.9411764705882,60,25,31,31.4,31,14,20.6885245901639,44.9411764705882,20.983606557377,29.8947368421053,50,46,16,37,20.3333333333333,20.3333333333333,44.9411764705882,20.983606557377,32,19,26,35,40,20.983606557377,35,40,26,26,35,29,15,11,27.6,18,55,25,44,44.9411764705882,36.2987012987013,72,36.2987012987013,44.9411764705882,21,24.8181818181818,18,31,17,23,24.8181818181818,27,29.8947368421053,41,24.8181818181818,20,60,32,30,48,22,30,20.983606557377,25,30,20.983606557377,30,48,22,10,14,35,42,42,35,24.8181818181818,44.9411764705882,24.8181818181818,36.2987012987013,40,44.9411764705882,35,28.3913043478261,24,20,15,29.8947368421053,20.3333333333333,22,20.983606557377,28.3913043478261,29.8947368421053,36.2987012987013,44.9411764705882,20.6885245901639,35,60,60,44.9411764705882,20.983606557377,20.6885245901639,24.8181818181818,36.2987012987013,20.983606557377,20.983606557377,44.9411764705882,20.983606557377,20.983606557377,68.9,68.9,35,65,65,19,15,9,30,28,30,16,50,35,55,35,55,11,20.6885245901639,29.8947368421053,44.9411764705882,29.8947368421053,44.9411764705882,20,44.9411764705882,29.8947368421053,20.983606557377,36.2987012987013,36.2987012987013,36.2987012987013,23.875,23.875,68.9,44.9411764705882,17,35,35,35,13,20,30,36.2987012987013,24.8181818181818,36.2987012987013,40,20,30,45,28,24,28.3913043478261,16,16,36.2987012987013,44.9411764705882,28,44.9411764705882,48,23,24.8181818181818,43,44.9411764705882,35,18,53,28.3913043478261,19,19,20.983606557377,36.2987012987013,46,46,40,20.983606557377,44.9411764705882,15,16,20,26.9090909090909,15,26.9090909090909,36.2987012987013,35,30,44.9411764705882,20.983606557377,18,29.8947368421053,30,20.6885245901639,44.9411764705882,42,44.9411764705882,20.6885245901639,20.6885245901639,20.6885245901639,20.6885245901639,26,29,45,19,31,55,28.3913043478261,36,36,20.3333333333333,44.9411764705882,29.8947368421053,30,30,21,38,44.9411764705882,32,31,27,36.2987012987013,16,68.9,27,68.9,12,20.983606557377,20.3333333333333,17,15,44.9411764705882,49,22,20.983606557377,36.2987012987013,22,36.2987012987013,29.8947368421053,65,35,65,65,35,65,65,35,20.983606557377,20.983606557377,20.983606557377,9,36.2987012987013,11,50,11,31.4,44.9411764705882,44.9411764705882,29.8947368421053,20.983606557377,36,23.2,23.875,29.8947368421053,27,25,20,28,20.6885245901639,44.9411764705882,22,36.2987012987013,20.983606557377,36.2987012987013,20.6885245901639,26.9090909090909,36.2987012987013,18,44.9411764705882,17,44.9411764705882,22,44.9411764705882,23.2,36.2987012987013,36.2987012987013,20.983606557377,44.9411764705882,29.8947368421053,36.2987012987013,36.2987012987013,44.9411764705882,31.4],"z":[40,0,40,20,0,0,33.3333333333333,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,11.1111111111111,33.3333333333333,11.1111111111111,20,0,0,20,0,16.6666666666667,20,0,11.1111111111111,40,0,0,14.2857142857143,0,0,0,40,10,20,0,0,20,11.1111111111111,0,28.5714285714286,28.5714285714286,40,0,0,20,11.1111111111111,0,8.33333333333334,0,0,0,0,0,33.3333333333333,0,0,0,0,20,0,0,0,16.6666666666667,16.6666666666667,0,0,0,0,0,11.1111111111111,0,20,33.3333333333333,0,8.33333333333334,20,0,0,40,0,33.3333333333333,0,0,0,0,0,12.5,0,0,14.2857142857143,40,0,0,0,0,0,0,0,12.5,0,12.5,20,0,20,0,0,0,50,0,11.1111111111111,11.1111111111111,44.4444444444444,0,0,0,0,0,0,14.2857142857143,0,6.66666666666667,0,0,0,12.5,0,0,20,40,14.2857142857143,0,0,0,0,20,8.33333333333334,0,20,0,0,20,12.5,0,0,20,0,0,0,0,20,0,20,0,12.5,0,0,33.3333333333333,16.6666666666667,0,8.33333333333334,16.6666666666667,11.1111111111111,20,0,0,40,0,0,40,0,40,0,0,0,0,0,0,0,12.5,0,0,0,0,33.3333333333333,0,12.5,14.2857142857143,40,0,0,0,0,28.5714285714286,28.5714285714286,0,0,0,0,0,0,20,0,0,0,33.3333333333333,0,40,0,0,0,0,40,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,11.1111111111111,0,33.3333333333333,8.33333333333334,0,0,0,0,0,33.3333333333333,16.6666666666667,0,16.6666666666667,0,0,0,0,0,12.5,12.5,0,20,0,0,16.6666666666667,0,0,0,12.5,20,0,11.1111111111111,0,12.5,0,20,40,0,0,0,40,11.1111111111111,0,11.1111111111111,0,40,20,0,20,0,20,40,40,40,0,0,0,11.1111111111111,40,14.2857142857143,20,0,14.2857142857143,14.2857142857143,11.1111111111111,44.4444444444444,0,0,0,0,0,0,0,40,0,40,20,40,0,0,0,12.5,12.5,16.6666666666667,0,14.2857142857143,33.3333333333333,0,40,11.1111111111111,40,33.3333333333333,40,0,0,0,0,40,0,40,0,0,0,0,0,14.2857142857143,20,20,14.2857142857143,40,0,0,11.1111111111111,0,0,0,0,0,20,20,8.33333333333334,0,0,0,0,0,16.6666666666667,11.1111111111111,0,0,0,0,0,0,0,0,0,0,16.6666666666667,0,16.6666666666667,40,0,0,16.6666666666667,0,11.1111111111111,20,20,12.5,0,11.1111111111111,0,0,0,0,0,0,0,0,0,8.33333333333334,8.33333333333334,8.33333333333334,0,0,8.33333333333334,0,0,0,0,16.6666666666667,20,0,0,40,0,0,0,0,0,44.4444444444444,44.4444444444444,40,20,0,0,0,0,0,0,0,0,0,0,0,8.33333333333334,0,0,0,0,0,20,0,0,0,0,20,20,0,0,40,40,40,0,0,14.2857142857143,40,40,0,0,0,22.2222222222222,0,11.1111111111111,0,0,40,0,8.33333333333334,0,0,0,16.6666666666667,0,16.6666666666667,14.2857142857143,12.5,0,0,20,16.6666666666667,0,0,0,0,33.3333333333333,0,0,14.2857142857143,0,40,0,11.1111111111111,0,0,0,0,0,0,44.4444444444444,0,0,0,0,0,0,0,88.8888888888889,100,60,100,100,100,88.8888888888889,100,100,100,100,100,100,100,100,66.6666666666667,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,71.4285714285714,100,100,100,71.4285714285714,100,80,80,100,80,100,77.7777777777778,100,100,100,77.7777777777778,100,80,100,100,100,100,100,100,100,100,100,100,60,100,100,100,100,60,60,100,100,100,85.7142857142857,100,100,100,100,100,100,100,100,100,100,71.4285714285714,100,100,100,100,100,100,100,100,100,60,60,100,100,100,83.3333333333333,100,100,100,100,100,100,80,100,80,100,100,100,100,100,75,100,100,100,72.7272727272727,100,100,100,100,100,100,100,83.3333333333333,80,80,100,100,100,100,100,100,80,100,100,83.3333333333333,100,100,100,100,100,60,100,100,100,100,80,100,80,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,66.6666666666667,100,66.6666666666667,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,60,100,100,100,100,100,100,100,100,57.1428571428571,77.7777777777778,100,80,100,100,100,81.8181818181818,100,100,100,100,100,100,100,100,100,80,100,60,100,100,100,100,69.5652173913043,100,85.7142857142857,100,100,83.3333333333333,100,100,100,71.4285714285714,83.3333333333333,100,100,100,100,100,100,71.4285714285714,100,100,100,100,80,100,100,80,100,100,100,100,100,66.6666666666667,66.6666666666667,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,85.7142857142857,85.7142857142857,85.7142857142857,85.7142857142857,100,100,85.7142857142857,85.7142857142857,100,100,100,100,100,100,100,100,100,83.3333333333333,100,83.3333333333333,100,100,77.7777777777778,100,100,100,100,100,100,100,100,69.5652173913043,100,69.5652173913043,69.5652173913043,100,100,69.5652173913043,69.5652173913043,69.5652173913043,100,100,69.5652173913043,100,69.5652173913043,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,66.6666666666667,100,100,100,100,100,100,80,100,100,100,100,100,100,66.6666666666667,66.6666666666667,66.6666666666667,100,66.6666666666667,100,100,100,100,100,100,80,100,100,100,100,100,71.4285714285714,100,100,100,71.4285714285714,100,62.5,100,62.5,100,100,100,100,80,100,100,100,100,100,100,100,100,100,100,80,83.3333333333333,100,100,100,100,100,100,100,72.7272727272727,100,100,100,100,100,100,100,88.8888888888889,100,100,100,100,100,100,100,100,100,80,66.6666666666667,100,100,100,100,100,60,60,100,100,100,100,83.3333333333333,100,100,100,100,71.4285714285714,100,100,100,100,100,100,100,100,100,100,100,100,83.3333333333333,100,100,100,70,100,87.5,100,100,100,100,100,100,100,60,50,81.8181818181818,100,100,100,100,75,100,100,100,100,100,100,100,100,100,100,80,100,100,100,100,100,100,100,100,100,60,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,69.5652173913043,100,100,100,100,66.6666666666667,100,60,100,100,100,100,100,100,100,100,72.7272727272727,100,100,100,100,100,100,100,100,66.6666666666667,100,100,100,100,100,100,100,100,100,100,100,60,80,100,100,100,100,100,100,100,100,100,83.3333333333333,100,100,83.3333333333333,100,100,100,83.3333333333333,100,100,100,100,100,85.7142857142857,100,60,100,100,83.3333333333333,100,100,100,100,100,100,100,100,100,100,100,81.25,100,100,100,100,100,60,100,100,100,100,100,100,100,60,100,100,100,83.3333333333333,60,60,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,75,60,60,100,100,100,100,100,100,100,100,100,100,100,100,100,69.5652173913043,69.5652173913043,100,100,100,100,100,100,100,71.4285714285714,100,66.6666666666667,100,66.6666666666667,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,83.3333333333333,83.3333333333333,100,100,100,100,100,100,100,71.4285714285714,100,100,80,100,100,100,100,100,100,100,100,100,60,100,100,80,100,100,100,100,100,100,100,100,100,80,80,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,80,100,100,100,100,100,100,100,80,100,100,66.6666666666667,100,80,80,100,100,100,100,100,100,62.5,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,50,100,100,100,100,100,100,69.5652173913043,100,69.5652173913043,69.5652173913043,100,69.5652173913043,69.5652173913043,100,100,100,100,100,100,100,80,100,100,100,100,100,100,80,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100],"type":"scatter3d","mode":"markers","name":"Correct Prediction","marker":{"color":"rgba(153,153,153,1)","line":{"color":"rgba(153,153,153,1)"}},"textfont":{"color":"rgba(153,153,153,1)"},"error_y":{"color":"rgba(153,153,153,1)"},"error_x":{"color":"rgba(153,153,153,1)"},"line":{"color":"rgba(153,153,153,1)"},"frame":null},{"x":[0.045,0.065,0.05,0.047,0.058,0.07,0.05,0.038,0.065,0.055,0.047,0.045,0.075,0.065,0.04,0.075,0.04,0.049,0.043,0.048,0.048,0.041,0.056,0.077,0.045,0.048,0.042,0.072,0.062,0.059,0.059,0.059,0.065,0.07,0.055,0.06,0.055,0.055,0.042,0.04,0.056,0.04,0.058,0.065,0.05,0.046,0.065,0.058,0.062,0.062,0.067,0.045,0.07,0.066,0.073,0.062,0.072,0.065,0.065,0.06,0.065,0.065,0.065,0.068,0.085,0.055,0.058,0.09,0.0765384615384615,0.07,0.059,0.099,0.07,0.073,0.073,0.06,0.057,0.075,0.048,0.058,0.065,0.065,0.099,0.08,0.057,0.053,0.072,0.082,0.057,0.057,0.067,0.08,0.07,0.061,0.06,0.065,0.078,0.065,0.067,0.067,0.099,0.063,0.08,0.08,0.05,0.065,0.071,0.057,0.084,0.072,0.095,0.075,0.061,0.085,0.068,0.07,0.076,0.06,0.06,0.071,0.062,0.06,0.068,0.082,0.063,0.065,0.08,0.077,0.062,0.073,0.055,0.06],"y":[50,65,35,42,36,46,45,40,33,45,35,40,35,65,55,72,42,35,60,48,48,41,55,30,50,38,35,50,45,60,60,60,65,40,40,50,45,40,30,37,50,37,45,45,55,45,65,55,68,43,45,30,45,50,50,55,45,44,44,40,65,65,65,55,50,64,58,50,65.4166666666667,70,47,85,68,70,70,60,42,93,44,44,45,45,85,80,68,49,75,65,47,44,71,70,68,60,55,80,60,115,75,85,100,55,69,80,61,80,83,42,90,60,49,77,41,52,65,72,78,54,54,95,55,75,65,65.4166666666667,42,45,54,71,42,85,52,55],"z":[80,73.9130434782609,100,100,100,100,100,85.7142857142857,100,80,87.5,100,100,73.9130434782609,81.8181818181818,60,80,91.6666666666667,100,80,80,55.5555555555556,100,100,80,77.7777777777778,80,57.1428571428571,66.6666666666667,70,70,70,73.9130434782609,80,85.7142857142857,85.7142857142857,80,85.7142857142857,80,83.3333333333333,88.8888888888889,83.3333333333333,71.4285714285714,60,90,80,73.9130434782609,54.5454545454545,50,100,60,80,50,66.6666666666667,62.5,57.1428571428571,50,80,80,81.8181818181818,73.9130434782609,73.9130434782609,73.9130434782609,83.3333333333333,40,0,0,40,28.5714285714286,0,20,16.6666666666667,16.6666666666667,16.6666666666667,16.6666666666667,33.3333333333333,42.8571428571429,0,20,42.8571428571429,40,40,16.6666666666667,20,33.3333333333333,50,0,0,20,20,11.1111111111111,0,16.6666666666667,16.6666666666667,20,20,16.6666666666667,0,0,0,0,42.8571428571429,0,20,33.3333333333333,20,0,42.8571428571429,0,0,42.8571428571429,20,30,42.8571428571429,20,0,20,28.5714285714286,28.5714285714286,0,42.8571428571429,0,20,28.5714285714286,16.6666666666667,40,40,11.1111111111111,16.6666666666667,0,40,20],"type":"scatter3d","mode":"markers","name":"Incorrect Prediction","marker":{"color":"rgba(228,26,28,1)","line":{"color":"rgba(228,26,28,1)"}},"textfont":{"color":"rgba(228,26,28,1)"},"error_y":{"color":"rgba(228,26,28,1)"},"error_x":{"color":"rgba(228,26,28,1)"},"line":{"color":"rgba(228,26,28,1)"},"frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<p>The probability of being an ale decreases as the the IBU rating increases indicating correlation. No such correlation exists with ABV. This same information is plotted below in 2 dimensions for clarity.</p>
+<p>Create 2D scatterplots of probability of being an ale vs ABV and probability of being an ale vs IBU colored by the beer’s style (this is the same informtion shown in the 3D plot above). This is a simplified view that confirms that IBU and the probability of being an ale are correlated, while ABV and probability of being an ale are not.</p>
+<pre class="r"><code>class_df$`Ale Probability` = class_df$AleProb * 100
+class_df %&gt;% ggplot(aes(x = ABV * 100, y = `Ale Probability`, color = Truth)) + 
+  geom_point(position = &#39;jitter&#39;) + 
+  ggtitle(&#39;Predicted Style Probabilities (ABV)&#39;) + 
+  scale_color_manual(&#39;True Style&#39;, values = c(&#39;red&#39;, &#39;blue&#39;)) + 
+  ylab(&#39;Probability of Being an Ale (%)&#39;) + 
+  theme(plot.title = element_text(hjust = 0.5)) +
+  xlab(&#39;ABV (%)&#39;)</code></pre>
+<p><img src="CaseStudy1_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<pre class="r"><code>class_df %&gt;% ggplot(aes(x = IBU, y = `Ale Probability`, color = Truth)) + 
+  geom_point(position = &#39;jitter&#39;) + 
+  ggtitle(&#39;Predicted Style Probabilities (IBU)&#39;) + 
+  scale_color_manual(&#39;True Style&#39;, values = c(&#39;red&#39;, &#39;blue&#39;)) + 
+  ylab(&#39;Probability of Being an Ale (%)&#39;) + 
+  theme(plot.title = element_text(hjust = 0.5))</code></pre>
+<p><img src="CaseStudy1_files/figure-html/unnamed-chunk-24-2.png" width="672" /></p>
+<p>Create a 2D plot of ABV vs IBU colored by model correctness. This shows that most errors occur in a middle IBU range of ~45-75, indicating that this range may be thought of as a boundary between IPA’s and ales.</p>
+<pre class="r"><code>class_df %&gt;% ggplot(aes(x = IBU, y = ABV * 100, color = Correct)) + 
+  geom_point(position = &#39;jitter&#39;) + 
+  ggtitle(&#39;KNN Model Performance&#39;) +
+  scale_color_manual(&#39;Model Performance&#39;, values = c(&#39;red&#39;, &#39;blue&#39;)) + 
+  theme(plot.title = element_text(hjust = 0.5)) +
+  ylab(&#39;ABV (%)&#39;)</code></pre>
+<p><img src="CaseStudy1_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<p>A logistic regression classifier was trained in order to determine the statistical significance of the relationships between beer style and IBU and ABV</p>
+<p>Create training and test sets</p>
+<pre class="r"><code>library(ISLR)
+library(gridExtra)
+ipa_ale_dataset$Style = as.factor(ipa_ale_dataset$Style)
+splitpercent = .70
+trainIndices = sample(1:dim(ipa_ale_dataset)[1], round(splitpercent * dim(ipa_ale_dataset)[1]))
+ipa_ale_train = ipa_ale_dataset[trainIndices,]
+ipa_ale_test = ipa_ale_dataset[-trainIndices,]</code></pre>
+<p>Train and test logistic regression model and output its performance metrics. This model is capable of ascertaining the statistical significance of the relationships. It confirms our intuitions that IBU is significantly correlated to style, while ABV is not.</p>
+<pre class="r"><code>logistic_regression_model = glm(Style ~ ABV + IBU,  family = binomial(link = &#39;logit&#39;), data = ipa_ale_train)
+summary(logistic_regression_model)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = Style ~ ABV + IBU, family = binomial(link = &quot;logit&quot;), 
+##     data = ipa_ale_train)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -3.7574  -0.4390  -0.1891   0.5720   2.5762  
+## 
+## Coefficients:
+##               Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  -5.750066   0.557478 -10.314   &lt;2e-16 ***
+## ABV         -14.536075  10.297139  -1.412    0.158    
+## IBU           0.119593   0.007653  15.627   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 1435.7  on 1073  degrees of freedom
+## Residual deviance:  688.0  on 1071  degrees of freedom
+## AIC: 694
+## 
+## Number of Fisher Scoring iterations: 6</code></pre>
+<pre class="r"><code>fitted.results = predict(logistic_regression_model, newdata = subset(ipa_ale_test, select = c(7, 8)), type = &#39;response&#39;)
+log.probs = as.data.frame(fitted.results)$fitted.results
+ipa_ale_test$Prob_IPA = log.probs
+fitted.results = ifelse(fitted.results &gt; 0.5, &#39;IPA&#39;, &#39;Ale&#39;)
+misclass_error = mean(fitted.results != ipa_ale_test$Style)
+print(paste(&#39;Accuracy is &#39;, 1 - misclass_error))</code></pre>
+<pre><code>## [1] &quot;Accuracy is  0.88695652173913&quot;</code></pre>
+<p>This model is less accurate than the previous cross validated model, but it has the benefit of providing hard statistical evidence to support our suspicions: that IBU is correlated with beer style, and ABV is not significantly correlated.</p>
+<p>This plots the performance of the logistic regression model based on a beers ABV and IBU. This model confirms the previous IBU boundary between IPAs and ales as somewhere between ~45-75.</p>
+<pre class="r"><code># Create dataframe of test set and model results
+ipa_ale_test$Predicted_Style = fitted.results
+ipa_ale_test$Correct = ifelse(ipa_ale_test$Style == ipa_ale_test$Predicted_Style, &#39;Correct Prediction&#39;, &#39;Incorrect Prediction&#39;)
+ipa_ale_test %&gt;% ggplot(aes(x = IBU, y = ABV * 100, color = Correct)) + 
+  geom_point(position = &#39;jitter&#39;) + 
+  ggtitle(&#39;Logistic Model Performance&#39;) + 
+  scale_color_manual(&#39;Model Performance&#39;, values = c(&#39;blue&#39;, &#39;red&#39;)) +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  ylab(&#39;ABV (%)&#39;)</code></pre>
+<p><img src="CaseStudy1_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+<p>Plot 3D results of model performance with IPA Probability as the z axis. This shows that the probability of being an IPA increases as the IBU rating increases, while no such relationship exists with ABV. This confirms our previous models. The point at which the model considers a beer to be an IPA is at an IBU of ~ 55, indicating this to be a likely value for the cutoff IBU between IPAs and Ales.</p>
+<pre class="r"><code>library(plotly)
+logmodel_plot &lt;- plot_ly(ipa_ale_test, x = ~IBU, y = ~ABV, z = ~Prob_IPA *100, color = ~Correct, colors = c(&#39;blue&#39;, &#39;red&#39;))
+logmodel_plot &lt;- logmodel_plot %&gt;% add_markers()
+logmodel_plot &lt;- logmodel_plot %&gt;% layout(title = &#39;Logistic Regression Model Performance Probability&#39;, scene = list(xaxis = list(title = &#39;IBU&#39;),
+                                  yaxis = list(title = &#39;ABV&#39;),
+                                  zaxis = list(title = &#39;Probability of Being an IPA (%)&#39;)))
+logmodel_plot</code></pre>
+<div id="htmlwidget-6c29726be78e12c10847" style="width:672px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6c29726be78e12c10847">{"x":{"visdat":{"3330a257086":["function () ","plotlyVisDat"]},"cur_data":"3330a257086","attrs":{"3330a257086":{"x":{},"y":{},"z":{},"color":{},"colors":["blue","red"],"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter3d","mode":"markers","inherit":true}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Logistic Regression Model Performance Probability","scene":{"xaxis":{"title":"IBU"},"yaxis":{"title":"ABV"},"zaxis":{"title":"Probability of Being an IPA (%)"}},"hovermode":"closest","showlegend":true},"source":"A","config":{"showSendToCloud":false},"data":[{"x":[68,85,67.6345514950166,67.6345514950166,67.6345514950166,57,67.6345514950166,65,104,67.6345514950166,90,77,75,75,75,77,61,85,67.6345514950166,60,100,62,103,70,67.6345514950166,76,100,67.6345514950166,67.6345514950166,67.6345514950166,57,90,67.6345514950166,67.6345514950166,67,75,67.6345514950166,72,72,100,88,100,65,58,70,100,70,60,70,60,70,60,60,82,93.32,70,67.6345514950166,85,85,67.6345514950166,85,60,93.32,67.6345514950166,93.32,93.32,93.32,93.32,93.32,67.6345514950166,68,60,55,67.6345514950166,75,85,69,66,81,70,80,64,90,65,92,60,74,70,70,67.6345514950166,67.6345514950166,65,72,67.6345514950166,93.32,120,120,73,66,87,60,60,100,72,67.6345514950166,67.6345514950166,67.6345514950166,65,65,67.6345514950166,70,74,113,138,93.32,86,68,67.6345514950166,67.6345514950166,67.6345514950166,70,86,70,64,82,75,70,100,67.6345514950166,65,67.6345514950166,67.6345514950166,67.6345514950166,70,19,27,30,29.8947368421053,20.6885245901639,29.6666666666667,29.6666666666667,36.2987012987013,29.6666666666667,27,28.3913043478261,15,44.9411764705882,23.875,20.3333333333333,40,20,26.9090909090909,50,23,30,23,20.6885245901639,18,18,20.6885245901639,45,34,35,20.6885245901639,28.3913043478261,44.9411764705882,40,12,20,47,35,20,30,36.2987012987013,22,36.2987012987013,18,45,19,8,43,43,20,20,20,20,20,20,20,20.6885245901639,20.6885245901639,18,37,26.9090909090909,44.9411764705882,29.8947368421053,20,32,36.2987012987013,42,25,24,36.2987012987013,20.983606557377,29.8947368421053,20.983606557377,22,25,40,35,36,42,20.983606557377,6,25,33,21,7,9,33,20.983606557377,33,7,20.3333333333333,36.2987012987013,20,14,36.2987012987013,42,32,29.8947368421053,25,44.9411764705882,20.3333333333333,31.4,44.9411764705882,44.9411764705882,30,36.2987012987013,20.983606557377,29,10,17,28.3913043478261,22,35,4,44.9411764705882,4,15,4,44.9411764705882,36.2987012987013,28,28.3913043478261,28.3913043478261,25,40,44.9411764705882,27,55,23.875,53,26.9090909090909,53,44.9411764705882,30,46,20.3333333333333,20.983606557377,21,23,28.3913043478261,12,36.2987012987013,24.2307692307692,15,44.9411764705882,30,30,35,29.8947368421053,20.983606557377,44.9411764705882,22,39,44.9411764705882,35,40,27,22,27,16,20.6885245901639,20.6885245901639,20.6885245901639,25,31.4,20.983606557377,36.2987012987013,28,18,20,20.983606557377,44.9411764705882,31,20.6885245901639,50,37,20.3333333333333,20.3333333333333,32,26,40,26,35,27.6,18,25,44,44.9411764705882,36.2987012987013,44.9411764705882,24.8181818181818,31,17,32,48,20.983606557377,30,48,22,35,35,24.8181818181818,40,24,22,20.983606557377,54,28.3913043478261,36.2987012987013,20.983606557377,20.6885245901639,24.8181818181818,36.2987012987013,44.9411764705882,20.983606557377,20.983606557377,15,16,35,55,20.983606557377,35,35,40,30,45,24,28,23,24.8181818181818,35,19,42,36.2987012987013,15,20,26.9090909090909,15,45,35,30,44.9411764705882,18,44.9411764705882,20.6885245901639,26,29,19,31,28.3913043478261,20.3333333333333,44.9411764705882,29.8947368421053,30,38,36.2987012987013,12,49,36.2987012987013,22,35,11,11,44.9411764705882,20.983606557377,20,22,26.9090909090909,18,55,22,44.9411764705882,44.9411764705882,29.8947368421053,44.9411764705882],"y":[0.08,0.075,0.05,0.071,0.07,0.065,0.06,0.072,0.06,0.06,0.064,0.075,0.064,0.064,0.064,0.075,0.07,0.07,0.059,0.075,0.05,0.064,0.091,0.07,0.072,0.063,0.083,0.075,0.075,0.08,0.07,0.085,0.065,0.065,0.052,0.092,0.0645275779376499,0.066,0.066,0.07,0.07,0.092,0.065,0.057,0.066,0.085,0.07,0.07,0.075,0.07,0.075,0.07,0.07,0.062,0.08,0.06,0.085,0.087,0.087,0.085,0.087,0.043,0.082,0.027,0.088,0.079,0.096,0.09,0.086,0.075,0.07,0.068,0.056,0.06,0.068,0.075,0.071,0.064,0.069,0.057,0.065,0.055,0.093,0.068,0.094,0.059,0.074,0.08,0.08,0.075,0.07,0.068,0.062,0.043,0.096,0.08,0.08,0.076,0.068,0.073,0.065,0.072,0.063,0.065,0.063,0.072,0.052,0.062,0.065,0.067,0.07,0.078,0.07,0.082,0.096,0.085,0.062,0.07,0.04,0.062,0.072,0.08,0.07,0.06,0.084,0.068,0.068,0.066,0.072,0.065,0.057,0.065,0.0645275779376499,0.065,0.048,0.065,0.063,0.062,0.061,0.067,0.065,0.06,0.062,0.073,0.09,0.048,0.058,0.05,0.06,0.055,0.053,0.054,0.056,0.054,0.09,0.054,0.051,0.052,0.05,0.06,0.055,0.069,0.052,0.045,0.064,0.048,0.055,0.044,0.05,0.059,0.049,0.047,0.075,0.065,0.049,0.05,0.045,0.051,0.047,0.045,0.058,0.058,0.046,0.039,0.039,0.039,0.039,0.039,0.039,0.048,0.048,0.052,0.056,0.0663333333333333,0.0545774058577406,0.0579264705882353,0.042,0.07,0.05,0.055,0.048,0.052,0.051,0.047,0.058,0.047,0.075,0.05,0.05,0.058,0.053,0.052,0.049,0.045,0.05,0.075,0.051,0.05,0.052,0.054,0.035,0.054,0.05,0.0528571428571429,0.052,0.05,0.059,0.052,0.055,0.048,0.055,0.055,0.055,0.041,0.056,0.051,0.051,0.061,0.057456,0.055,0.04,0.05,0.04,0.05,0.053,0.08,0.056,0.042,0.056,0.058,0.056,0.05,0.06,0.058,0.069,0.072,0.053,0.077,0.042,0.052,0.06,0.068,0.075,0.05,0.075,0.058,0.055,0.047,0.055,0.045,0.043,0.063,0.053,0.05,0.055,0.08,0.05,0.06,0.055,0.056,0.045,0.054,0.047,0.055,0.05,0.04,0.061,0.055,0.053,0.06,0.053,0.046,0.078,0.047,0.047,0.047,0.042,0.055,0.065,0.055,0.055,0.045,0.055,0.049,0.05,0.075,0.055,0.063,0.063,0.056,0.056,0.05,0.051,0.05,0.051,0.05,0.053,0.044,0.06,0.066,0.05,0.077,0.056,0.055,0.051,0.062,0.045,0.053,0.048,0.05,0.053,0.07,0.05,0.083,0.05,0.051,0.06,0.049,0.055,0.06,0.064,0.08,0.051,0.051,0.047,0.062,0.056,0.053,0.053,0.045,0.053,0.056,0.073,0.054,0.049,0.049,0.055,0.05,0.05,0.07,0.048,0.052,0.055,0.056,0.05,0.063,0.05,0.059,0.046,0.058,0.05,0.065,0.065,0.056,0.045,0.06,0.0545774058577406,0.047,0.065,0.06,0.095,0.06,0.06,0.06,0.055,0.057,0.054,0.044,0.057456,0.074,0.058,0.057456,0.044,0.08,0.065,0.065,0.058,0.048,0.045,0.0415,0.057,0.045,0.06,0.053,0.056,0.072,0.042,0.043],"z":[77.1950886557963,96.5280532570805,83.3652424817112,78.6923463909508,78.9350633296865,53.0432342029427,81.2505989898548,72.6486725000533,99.7027641952807,81.2505989898548,98.3422282393209,91.4383782985884,90.7969173956548,90.7969173956548,90.7969173956548,91.4383782985884,62.8916390531889,96.763566487583,81.4710363160637,58.3047835486648,99.5857944130041,67.5765738254241,99.475495063134,83.2563636293372,78.4475963897306,91.8580574361285,99.3325220211129,77.7011555347122,77.7011555347122,76.4165643454128,51.2297431078871,97.7636801903613,80.1181635396375,80.1181635396375,81.8583094105844,86.7849484767576,80.2273241070662,87.0031379051315,87.0031379051315,99.4468178087526,97.7169818586507,99.2399390823667,74.6233229740118,58.8498432697596,84.05130791755,99.3129674511824,83.2563636293372,60.0602967268885,82.2185610921384,60.0602967268885,82.2185610921384,60.0602967268885,60.0602967268885,95.9117391557549,98.5900972605198,85.1860330863573,75.0817026860793,95.8935716879024,95.8935716879024,75.0817026860793,95.8935716879024,69.0071184988431,98.5491101569234,87.5017137850535,98.4189769511996,98.6101606968055,98.2274611215332,98.3730973203661,98.4635829563678,77.7011555347122,79.6525857418032,60.7555941183935,50.337971129262,81.2505989898548,90.299395333524,96.5280532570805,81.3023550197566,77.0785427456805,94.9500057134489,85.7279430996469,94.6470903557988,75.1081848798754,97.4948061046092,73.7886876686035,97.9887229571573,63.8272680561444,88.3307722910724,81.1310120059582,81.1310120059582,77.7011555347122,78.9350633296865,73.7886876686035,87.6465896259263,84.7288360842666,98.2274611215332,99.9411994760221,99.9411994760221,86.7089739397806,76.0351428887429,97.3230975017265,61.7903352480809,59.3609205588897,99.500068936759,87.1666249099858,80.5772010427621,78.4475963897306,82.9581613618953,75.4402271984057,74.6233229740118,79.6510169420706,83.2563636293372,87.7179637107337,99.8826273965955,99.992963787838,98.2274611215332,96.4406515120368,81.4724974400726,78.9350633296865,85.2845817245616,80.803685017462,82.8471662818429,96.6818896840381,83.2563636293372,73.7247305304823,94.4565091426672,90.299395333524,83.6577247739725,99.4779018331134,78.4475963897306,74.6233229740118,81.905892621506,80.1181635396375,80.2273241070662,84.2452020853105,1.51344154571893,3.02980746907636,4.40216396180612,4.41036644696037,1.53289051154216,4.00765361709634,4.12100296564927,9.2694819084114,4.29679598174776,2.70619123686489,2.50157323147053,0.943447833547701,22.8197683675171,2.60436882157711,1.49128089467439,14.6060782373839,1.58498037867893,3.49966302012773,35.7910431330299,2.2218107551585,3.01625331623946,2.2218107551585,1.76848011102471,1.27012662713538,1.307104189711,1.55498644189224,23.7239652378963,6.37508491181235,8.94643331202363,1.9265417609981,3.60901263776991,25.4803474199169,14.6060782373839,0.700195508641404,1.65445893359672,27.1538324821824,9.3080851804658,1.72692967916271,3.7237628673373,8.676050492124,2.12214809076743,10.5665110942321,1.40425880478058,24.7921457697344,1.53526149901608,0.428881555768842,18.989894601001,18.989894601001,1.75177283759843,1.93577214982585,1.93577214982585,1.93577214982585,1.93577214982585,1.93577214982585,1.93577214982585,1.84585161733411,1.84585161733411,1.27012662713538,10.5349315987377,2.94217432068887,23.7078274439238,4.6668491206056,1.8547027171134,5.01816736439453,10.5665110942321,17.8484135837858,3.05318585133034,2.56878391475348,10.4299304928018,1.9383245152299,4.66209614571899,1.9383245152299,1.46402905953149,2.96829783499165,15.5361142221164,8.26094284223023,9.83994557620185,18.496818642911,1.88383078140295,0.337953370877534,2.96829783499165,5.24654575536414,1.83436751725606,0.354127872624729,0.436567886275006,6.9885414361705,2.29921961278845,6.9885414361705,0.354127872624729,1.65174816659991,10.2949120836639,1.65445893359672,0.715051448960139,10.2949120836639,17.8484135837858,6.78099862137507,4.85980107320296,2.76596975969397,23.5968997125759,1.95636545977867,5.68466559727629,24.6612088138453,24.6612088138453,4.52614522008487,9.58521055349419,1.72921153601667,5.39970097586783,0.506188612154823,1.34076579786411,4.38779593125774,2.00467903967534,6.13871176791224,0.226997311821177,27.1714952792472,0.226997311821177,0.816851675499643,0.226997311821177,24.9322748150719,9.2694819084114,3.75228869864511,3.36452586244076,3.22558889669196,2.84524122268122,11.0501295623029,27.1714952792472,3.63709656193982,48.884553926666,2.01688614617546,37.7105539842814,3.70142543563763,37.7105539842814,22.8197683675171,4.91833844601203,28.2520826166771,1.60190282350274,1.99436255230461,2.05593093206425,1.95467929734619,4.20844358903437,0.642089774981164,9.89910354758985,1.77209862497075,0.916662441177661,22.3117892667947,4.91833844601203,4.8508051378422,9.81067037340151,4.92745313765989,1.9383245152299,23.5968997125759,2.09216422436795,15.8772621342403,22.0608407621359,8.59750082858114,14.9724303970044,3.25078979117026,2.00467903967534,3.95544477959056,0.689257192983217,1.87237296057718,1.87237296057718,1.87237296057718,3.3221874729943,5.76310482774438,1.49877331823542,9.89910354758985,3.91299507717319,1.40425880478058,1.54026447118193,1.88383078140295,24.9322748150719,4.17706173711023,1.6702538684165,33.4879476424178,9.6136941223237,1.57915091825118,1.57915091825118,6.59952134533102,3.28630132890036,15.5361142221164,3.28630132890036,9.18609997216103,3.84304798352632,1.42452739099947,2.57706668925028,19.04077797996,24.9322748150719,7.3899304712167,23.3358388123729,2.7080864358697,5.81933867623009,0.977383420153699,7.06190373229141,31.431504525235,1.91088718873327,5.2695776278032,31.431504525235,1.57266174367853,9.18609997216103,5.89220079178486,2.90630695747284,15.3463201065266,2.29324545828947,2.12214809076743,1.72921153601667,45.9037496986899,3.60901263776991,7.09697364923979,1.83084047195577,1.76848011102471,3.03192224038351,9.02785606390664,23.3358388123729,1.77931369680966,1.77931369680966,0.985085915846834,0.988314020668498,8.48395688949518,44.1865554167099,1.75408693472954,9.3080851804658,9.3080851804658,14.6060782373839,5.2695776278032,25.0641721729903,1.98916439270806,4.31403291547467,2.28585349090284,2.7080864358697,8.48395688949518,1.47071375061215,16.2065396557326,10.5665110942321,0.805158652940833,1.75177283759843,3.30852069402467,0.916662441177661,21.1946213264432,7.52183800150393,4.8508051378422,26.3171899392983,1.13226873002921,23.7078274439238,1.87237296057718,2.69750494301417,4.09324426550093,0.770057918235088,5.14241956745248,3.81682992487819,1.49128089467439,23.5968997125759,4.72713275550551,4.98676268241321,13.6446178650855,9.58521055349419,0.453844743308788,32.4512627587571,9.58521055349419,2.27848479488902,6.13871176791224,0.4589474679963,0.4589474679963,22.8197683675171,1.91088718873327,1.77696692095967,2.36081751941415,3.35533937282055,1.40425880478058,48.884553926666,2.00467903967534,23.3358388123729,19.434491767,5.81190656642651,26.8848032040256],"type":"scatter3d","mode":"markers","name":"Correct Prediction","marker":{"color":"rgba(0,0,255,1)","line":{"color":"rgba(0,0,255,1)"}},"textfont":{"color":"rgba(0,0,255,1)"},"error_y":{"color":"rgba(0,0,255,1)"},"error_x":{"color":"rgba(0,0,255,1)"},"line":{"color":"rgba(0,0,255,1)"},"frame":null},{"x":[51,36,47,55,50,50,42,40,55,45,45,48.8333333333333,48.8333333333333,45,54.7142857142857,48.8333333333333,44,44,55,72,68.9,70,68.9,85,68,70,60,68.9,60,68,75,55,55,55,68.9,65,65,70,65,60,60,68.9,72,80,68.9,60,65,65,65,95,75,65],"y":[0.07,0.058,0.045,0.059,0.045,0.072,0.059,0.055,0.06,0.058,0.065,0.06,0.042,0.067,0.06,0.06,0.05,0.065,0.068,0.085,0.058,0.07,0.055,0.099,0.07,0.073,0.058,0.068,0.058,0.057,0.072,0.056,0.056,0.056,0.072,0.065,0.065,0.08,0.065,0.058,0.078,0.05,0.08,0.065,0.07,0.055,0.068,0.065,0.065,0.071,0.06,0.065],"z":[33.8864773093478,9.21370184421189,31.3603352766798,49.2478274346368,39.5428913513286,30.6396121398869,17.0117348306235,14.6060782373839,48.884553926666,22.9439058417874,21.1946213264432,31.3864385040917,37.2743517339494,20.7131099649828,48.0311529414264,31.3864385040917,22.885540473829,19.2658644145528,45.9858118840584,83.5490522060629,83.8456343666107,83.2563636293372,84.4276140533195,95.1489686699055,79.6525857418032,82.6396120558423,64.1621988238999,81.7787114252139,64.1621988238999,82.5445990096299,89.7780050443973,50.337971129262,50.337971129262,50.337971129262,80.8962380855034,74.6233229740118,74.6233229740118,81.1310120059582,74.6233229740118,64.1621988238999,57.2409702093171,85.3594449992162,84.5238183120134,94.6470903557988,81.3414948646013,65.158628589976,73.7886876686035,74.6233229740118,74.6233229740118,98.9841064311114,91.2713892057205,74.6233229740118],"type":"scatter3d","mode":"markers","name":"Incorrect Prediction","marker":{"color":"rgba(255,0,0,1)","line":{"color":"rgba(255,0,0,1)"}},"textfont":{"color":"rgba(255,0,0,1)"},"error_y":{"color":"rgba(255,0,0,1)"},"error_x":{"color":"rgba(255,0,0,1)"},"line":{"color":"rgba(255,0,0,1)"},"frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="conclusion-5" class="section level4">
+<h4>Conclusion</h4>
+<p>To summarize: the difference between IPAs and ales are that IPAs tend to have a higher IBU rating than ales, while both styles of beers have the same range of ABVs. This was confirmed with multiple models.</p>
+</div>
+</div>
+<div id="question-9" class="section level3">
+<h3>Question 9</h3>
+<div id="find-one-other-useful-piece-of-information-in-the-data.-convince-them-why-its-important-and-back-it-up." class="section level4">
+<h4>Find one other useful piece of information in the data. Convince them why it’s important and back it up.</h4>
+<p>We will determine which beer styles are popular across all 50 states. The most brewed beer in each state will be determined and plotted. This will give inight into which beers are in demand by location. This information can be very valuable for marketing or brewing purposes. The beer styles were condensed into 8 distinct groups that are sufficiently different to warrant its own grouping.</p>
+<p>This code condenses beer styles into a few common types, such as: IPA, Ale, Pale Ale, Lager, Stout, Pilsner, Wheat Beer, and Porter. It then determines the most brewed beer by state, and plots a heat map</p>
+<pre class="r"><code># Filter into multiple groups
+ipa_dataset = dataset %&gt;% filter(grepl(&#39;.*IPA.*&#39;, dataset$Style))
+wheat_dataset = dataset %&gt;% filter(grepl(&#39;.*Wheat.*&#39;, dataset$Style) | grepl(&#39;.*Hefeweizen.*&#39;, dataset$Style) | grepl(&#39;.*Witbier.*&#39;, dataset$Style))
+ale_dataset = dataset %&gt;% filter(grepl(&#39;.* Ale.*&#39;, dataset$Style))
+ale_dataset = ale_dataset %&gt;% filter(!grepl(&#39;.*IPA.*&#39;, ale_dataset$Style))
+ale_dataset = ale_dataset %&gt;% filter(!grepl(&#39;.* Pale.*&#39;, ale_dataset$Style))
+ale_dataset = ale_dataset %&gt;% filter(!grepl(&#39;.*Wheat*&#39;, ale_dataset$Style))
+pale_ale_dataset = dataset %&gt;% filter(grepl(&#39;.* Pale.*&#39;, dataset$Style))
+pale_ale_dataset = pale_ale_dataset %&gt;% filter(!grepl(&#39;.*IPA.*&#39;, pale_ale_dataset$Style))
+lager_dataset = dataset %&gt;% filter(grepl(&#39;.*Lager.*&#39;, dataset$Style))
+stout_dataset = dataset %&gt;% filter(grepl(&#39;.*Stout.*&#39;, dataset$Style))
+pilsner_dataset = dataset %&gt;% filter(grepl(&#39;.*Pilsner.*&#39;, dataset$Style))
+porter_data = dataset %&gt;% filter(grepl(&#39;.*Porter.*&#39;, dataset$Style))
+ipa_dataset$Style = c(&#39;IPA&#39;)
+ale_dataset$Style = c(&#39;Ale&#39;)
+pale_ale_dataset$Style = c(&#39;Pale Ale&#39;)
+lager_dataset$Style = c(&#39;Lager&#39;)
+stout_dataset$Style = c(&#39;Stout&#39;)
+pilsner_dataset$Style = c(&#39;Pilsner&#39;)
+wheat_dataset$Style = c(&#39;Wheat Beer&#39;)
+porter_data$Style = c(&#39;Porter&#39;)
+styled_dataset = rbind(ipa_dataset, ale_dataset, pale_ale_dataset, lager_dataset, stout_dataset, pilsner_dataset, wheat_dataset, porter_data)
+styled_dataset = styled_dataset[order(styled_dataset$State),]
+styled_dataset$Style = as.factor(styled_dataset$Style)
+styled_dataset$State = as.factor(styled_dataset$State)
+
+# Find favorite beer in each state, and create a table containing the statistics.
+beer_counts = styled_dataset %&gt;% group_by(State) %&gt;% count(Style)
+beer_counts = beer_counts[with(beer_counts, order(beer_counts$State, -beer_counts$n)),]
+beer_count_spread = spread(beer_counts, Style, n)
+beer_count_spread[is.na(beer_count_spread)] = 0
+
+# Save the data for dc before removing the DC observations. Necessary for heat map to work as written
+beer_counts_dc = beer_counts
+beer_counts = subset(beer_counts, beer_counts$State != &#39; DC&#39;)
+row = 1
+for (row in 1:nrow(beer_count_spread)){
+  beer_count_spread$Total[row] = sum(beer_count_spread[row ,2:9])
+  row = row + 1
+}
+favorites = data.frame(matrix(&#39;&#39;, ncol = 2, nrow = 50))
+names(favorites) = c(&#39;State&#39;, &#39;Style&#39;)
+levels(favorites$State) = levels(styled_dataset$State)
+levels(favorites$Style) = levels(styled_dataset$Style)
+favorites$State = max_data2$abb
+favorites$Style = c(NA)
+favorites$Style = as.factor(favorites$Style)
+faclevels = addNA(levels(beer_counts$Style))
+levels(favorites$Style) = faclevels
+row  =1
+faverow = 1
+for (row in 1:nrow(beer_counts)) {
+  state = beer_counts$State[row]
+  style = beer_counts$Style[row]
+  
+  if(is.na(favorites[favorites$State == state,]$Style)) {
+    favorites$Style[faverow] = style
+    faverow = faverow + 1
+  }
+  row = row + 1
+}
+levels(favorites$Style) = levels(styled_dataset$Style)
+# Create Heatmap of favorite beers by State
+library(ggplot2)
+library(maps)
+library(dplyr)
+library(mapproj)
+# Create a dataframe containing state information and manipulate variables to merge dataframes later
+lookup = data.frame(abb = state.abb, State = state.name)
+colnames(favorites)[1] = &quot;abb&quot;
+favorites2 = merge(favorites,lookup, by =&quot;abb&quot;, all.x = TRUE, no.dups = F)
+levels(favorites2$State) = levels(lookup$State)
+levels(lookup$abb) = levels(favorites2$abb)
+for (row in 1:nrow(favorites2)){
+  abb = as.character(favorites2$abb[row])
+  abb = trimws(abb)
+  favorites2$State[row] = state.name[which(state.abb == abb)]
+}
+favorites2$region &lt;- tolower(favorites2$State)
+states &lt;- map_data(&quot;state&quot;)
+map.df &lt;- merge(states,favorites2, by=&quot;region&quot;, all.x=T)
+map.df &lt;- map.df[order(map.df$order),]
+map.df$region &lt;- as.factor(map.df$region)
+row = 1
+for (row in 1:nrow(map.df)) {
+  if (map.df$region[row] == &#39;district of columbia&#39;) {
+  map.df$Style[row] = &#39;Ale&#39;
+  row = row + 1
+  }
+}
+# Plot the heatmap
+ggplot(map.df, aes(x=long,y=lat,group=group)) + 
+  geom_polygon(aes(fill=Style)) +
+  geom_path() + 
+  ggtitle(&#39;Most Brewed Beer in Each State&#39;) +  
+  coord_map() + 
+  theme(plot.title = element_text(hjust = 0.5)) +
+  scale_fill_manual(values = c(&#39;red2&#39;, &#39;orange2&#39;, &#39;chartreuse3&#39;, &#39;blue3&#39;, &#39;cyan1&#39;, &#39;orchid&#39;, &#39;springgreen2&#39;, &#39;turquoise3&#39;), drop = FALSE)</code></pre>
+<p><img src="CaseStudy1_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+</div>
+<div id="conclusion-6" class="section level4">
+<h4>Conclusion</h4>
+<p>The most noticeable trend is the popularity of ales in the midwest, and of IPAs on the west coast and in New England. It should be noted that the most brewed style by region is likely indicative of local preferences, since microbreweries tend to have smaller distribution zones than large brewers. This map provides valuable information for targeted marketing for beer products, as well as an indication of what types of beers should be created based on brewery location.</p>
+</div>
+</div>
+<div id="summary" class="section level3">
+<h3>Summary</h3>
+<p>There were many valuable insights gained from the data provided by Budweiser. The distribution of breweries across the country is affected both by population demographics and the legal aspects of alcohol brewing and distribution. The strength of beers is also to some extent determined by law, and local preference, while the bitterness of local beers are determined almost wholly by local preference and new trends. These trends have been determined and summarized above, which can aid in targeted marketing for specific beers, or for consideration in creating new brews. A definite distinction was found between IPAs and ales, based solely on IBU rating. While IPAs tend to have a higher IBU rating than other ales, there is no such distinction in terms of alcohol content.</p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

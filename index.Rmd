@@ -1,0 +1,17 @@
+---
+title: "About Me"
+output: html_document
+---
+
+
+## Justin Cleveland
+
+#### Currently reside in San Antonio, Texas
+
+#### My interests are Investing and Trading Options, and Running and Surfing 
+#### I work for USAA as a Senior Business Intelligence Analyst 
+
+#### My undergraduate degree is in Finance and Risk Management from St. Mary's University
+
+The other tabs represent work / analyses that I have completed.  Please check them out!
+
